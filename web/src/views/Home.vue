@@ -27,7 +27,7 @@ import { Authentication as GirderAuth, DataDetails as GirderDataDetails } from '
 import { DefaultActionKeys } from '@girder/components/src/components/DataDetails.vue';
 import { FileManager as GirderFileManager } from '@girder/components/src/components/Snippet';
 
-const JUPYTER_ROOT = process.env.JUPYTER_ROOT || '/jupyter/some_notebook'; // TODO url
+const JUPYTER_ROOT = process.env.VUE_APP_JUPYTER_ROOT || '/jupyter/some_notebook';
 const actionKeys = [
   {
     for: ['item'],
