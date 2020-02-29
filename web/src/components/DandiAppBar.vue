@@ -6,7 +6,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on }">
         <v-btn text href="//www.dandiarchive.org"
-        class="ml-2" color="secondary" dark v-on="on">About</v-btn>
+        class="ml-2 white--text" dark v-on="on">About</v-btn>
       </template>
       <span>You are currently viewing the data portal.
       Click this button to learn more about the DANDI project.</span>
