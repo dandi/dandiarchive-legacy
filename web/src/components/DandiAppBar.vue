@@ -3,6 +3,15 @@
     <v-toolbar-title>
       <img align="center" alt="DANDI logo" height="48px" src="@/assets/logo.svg" />
     </v-toolbar-title>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <a href="//www.dandiarchive.org">
+        <v-btn class="ml-2" color="secondary" v-on="on">About</v-btn>
+        </a>
+      </template>
+      <span>You are currently viewing the data portal.
+      Click this button to learn more about the DANDI project</span>
+    </v-tooltip>
     <v-tooltip right>
       <template v-slot:activator="{ on }">
         <v-chip class="ml-2" color="secondary" v-on="on">
