@@ -5,11 +5,11 @@
     </v-toolbar-title>
     <v-tooltip bottom>
       <template v-slot:activator="{ on }">
-        <v-btn rounded href="//www.dandiarchive.org"
+        <v-btn text href="//www.dandiarchive.org"
         class="ml-2" color="secondary" v-on="on">About</v-btn>
       </template>
       <span>You are currently viewing the data portal.
-      Click this button to learn more about the DANDI project</span>
+      Click this button to learn more about the DANDI project.</span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{ on }">
