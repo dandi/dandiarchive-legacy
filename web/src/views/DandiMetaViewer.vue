@@ -91,7 +91,9 @@
                 </v-list-item>
                 <v-list-item v-if="details">
                   <v-list-item-content>
-                    <!-- Size: {{computedSize}}, Files: {{details.nItems}}, Folders: {{details.nFolders}} -->
+                    <!-- Size: {{computedSize}},
+                         Files: {{details.nItems}},
+                         Folders: {{details.nFolders}} -->
                     Files: {{details.nItems}}, Folders: {{details.nFolders}}
                   </v-list-item-content>
                 </v-list-item>
