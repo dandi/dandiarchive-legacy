@@ -71,8 +71,14 @@
         </v-chip>
       </template>
       <span>
-        DANDI is currently running in limited access mode.
-        Public release isn't until March 2020.
+        DANDI is now accepting datasets. To register and upload a new dataset, follow 
+        <a href="https://docs.google.com/document/d/1ehxd5a6Hurz7VqQDAszEpGASRTUP6muXYwJ5wgXhzU4/edit">
+        these instructions</a>. You will need to sign in on this site with your Github 
+        account in order to register/upload data or to use the 
+        <a href="https://hub.dandiarchive.org">DANDI computational hub</a>. You do not 
+        need to sign in to download data using the 
+        <a href="https://github.com/dandi/dandi-cli/blob/master/README.md">DANDI python 
+        client</a>.
       </span>
     </v-tooltip>
     <v-spacer/>
