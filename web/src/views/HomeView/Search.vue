@@ -1,14 +1,12 @@
 <template>
   <div
-    class="grey darken-2 pa-12"
-    style="width: 100%"
+    class="full-width grey darken-2 pa-12"
   >
     <v-text-field
       label="Search Dandisets"
       outlined
       solo
-      style="width: 100%"
-      :hide-details="true"
+      hide-details
       append-icon="$vuetify.icons.search"
       background-color="white"
       color="black"
@@ -20,3 +18,9 @@
 <script>
 export default { name: 'Search' };
 </script>
+
+<style scoped>
+.full-width {
+  width: 100%;
+}
+</style>

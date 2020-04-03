@@ -33,18 +33,15 @@
             justify="center"
             align="center"
           >
-            <div class="my-12">
+            <v-col class="splash-text my-12">
               <div class="display-3 font-weight-thin text-center light-blue--text text--darken-1">
                 The DANDI Archive
               </div>
-              <div
-                class="title font-weight-light text-center"
-                style="max-width: 560px"
-              >
+              <div class="title font-weight-light text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing Donec ac
                 lectus ellum ipsum dominum massa.
               </div>
-            </div>
+            </v-col>
           </v-row>
         </v-container>
       </v-img>
@@ -81,5 +78,9 @@ export default {
 .hide-brain {
   height: 100%;
   background-image: linear-gradient(to right, rgba(250,250,250,1), rgba(250,250,250,1));
+}
+
+.splash-text {
+  max-width: 560px;
 }
 </style>
