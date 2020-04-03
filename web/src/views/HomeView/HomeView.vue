@@ -23,7 +23,7 @@
               color="light-blue lighten-5 light-blue--text text--darken-1"
             >
               <v-icon color="light-blue darken-1">
-                $vuetify.icons.info
+                mdi-information
               </v-icon>
               We're in early access
             </v-alert>
@@ -50,7 +50,7 @@
       </v-img>
     </v-row>
     <v-row class="flex-grow-0">
-      <Stats />
+      <StatsBar />
     </v-row>
     <v-row>
       <Search />
@@ -59,12 +59,12 @@
 </template>
 
 <script>
-import Stats from '@/views/HomeView/Stats.vue';
+import StatsBar from '@/views/HomeView/StatsBar.vue';
 import Search from '@/views/HomeView/Search.vue';
 
 export default {
   name: 'HomeView',
-  components: { Stats, Search },
+  components: { StatsBar, Search },
   created() {
     this.$store.dispatch('stats/reload');
   },

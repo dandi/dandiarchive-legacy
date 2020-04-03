@@ -1,5 +1,3 @@
-import filesize from 'filesize';
-
 import girderRest from '@/rest';
 
 export default {
@@ -11,23 +9,23 @@ export default {
     species: 0,
     subjects: 0,
     cells: 0,
-    size: '0b',
+    size: 0,
   },
   mutations: {
-    setStats(state, stats) {
+    setStats(state, { stats }) {
       state.drafts = stats.draft_count;
       state.published = stats.published_count;
       state.users = stats.user_count;
       state.species = stats.species_count;
       state.subjects = stats.subject_count;
       state.cells = stats.cell_count;
-      state.size = filesize(stats.size, { round: 0 });
+      state.size = stats.size;
     },
   },
   actions: {
     async reload({ commit }) {
       const { data } = await girderRest.get('dandi/stats');
-      commit('setStats', data);
+      commit('setStats', { stats: data });
     },
   },
 };

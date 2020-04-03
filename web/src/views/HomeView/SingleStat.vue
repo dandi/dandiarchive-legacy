@@ -3,7 +3,7 @@
     fluid
     class="py-0 px-8"
     data-id="stat"
-    data-name="name"
+    :data-name="name"
   >
     <v-row class="display-2 font-weight-thin text-center white--text">
       <v-col
@@ -23,7 +23,7 @@
           v-if="description"
           right
         >
-          <template v-slot:activator="{ on }">
+          <template #:activator="{ on }">
             <v-icon
               color="grey"
               size="medium"
@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  name: 'Stat',
+  name: 'SingleStat',
   props: {
     value: { type: String, required: true },
     name: { type: String, required: true },

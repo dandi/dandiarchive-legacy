@@ -8,13 +8,12 @@
         <v-col
           :key="stat.name"
           class="py-0 flex-grow-1"
-          :md="2"
-          :sm="4"
-          :cols="6"
+          md="2"
+          sm="4"
+          cols="6"
         >
-          <Stat
-            :name="
-              stat.name"
+          <SingleStat
+            :name="stat.name"
             :value="stat.value"
             :description="stat.description"
           />
@@ -32,11 +31,12 @@
 </template>
 
 <script>
-import Stat from '@/views/HomeView/Stat.vue';
+import filesize from 'filesize';
+import SingleStat from '@/views/HomeView/SingleStat.vue';
 
 export default {
-  name: 'Stats',
-  components: { Stat },
+  name: 'StatsBar',
+  components: { SingleStat },
   computed: {
     stats() {
       return [
@@ -45,7 +45,7 @@ export default {
         { name: 'species', value: this.$store.state.stats.species.toString() },
         { name: 'subjects', value: this.$store.state.stats.subjects.toString() },
         { name: 'cells', value: this.$store.state.stats.cells.toString() },
-        { name: 'total data size', value: this.$store.state.stats.size.toString() },
+        { name: 'total data size', value: filesize(this.$store.state.stats.size.toString(), { round: 0 }) },
       ];
     },
   },
