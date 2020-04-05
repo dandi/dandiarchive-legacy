@@ -23,7 +23,7 @@
           v-if="description"
           right
         >
-          <template #:activator="{ on }">
+          <template #activator="{ on }">
             <v-icon
               color="grey"
               size="medium"

@@ -7,7 +7,7 @@
       outlined
       solo
       hide-details
-      append-icon="$vuetify.icons.search"
+      append-icon="mdi-magnify"
       background-color="white"
       color="black"
       data-id="search"
