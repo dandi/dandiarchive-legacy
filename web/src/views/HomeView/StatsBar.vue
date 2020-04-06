@@ -14,7 +14,7 @@
         >
           <SingleStat
             :name="stat.name"
-            :value="stat.value"
+            :value="stat.value.toString()"
             :description="stat.description"
           />
         </v-col>
@@ -40,12 +40,12 @@ export default {
   components: { SingleStat },
   computed: mapState({
     stats: (state) => [
-      { name: 'dandisets', value: state.stats.drafts.toString(), description: 'Draft dandisets, that is. Publishing is coming soon™' },
-      { name: 'users', value: state.stats.users.toString() },
-      { name: 'species', value: state.stats.species.toString() },
-      { name: 'subjects', value: state.stats.subjects.toString() },
-      { name: 'cells', value: state.stats.cells.toString() },
-      { name: 'total data size', value: filesize(state.stats.size.toString(), { round: 0 }) },
+      { name: 'dandisets', value: state.stats.drafts, description: 'Draft dandisets, that is. Publishing is coming soon™' },
+      { name: 'users', value: state.stats.users },
+      { name: 'species', value: state.stats.species },
+      { name: 'subjects', value: state.stats.subjects },
+      { name: 'cells', value: state.stats.cells },
+      { name: 'total data size', value: filesize(state.stats.size, { round: 0 }) },
     ],
   }),
 };
