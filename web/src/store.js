@@ -9,6 +9,8 @@ export default new Vuex.Store({
     girderRest: null,
     browseLocation: null,
     selected: [],
+    // purposelly set it to 400, probably not a good practice
+    currentStatus: 400,
   },
   getters: {
     loggedIn: state => !!state.girderRest.user,
@@ -27,6 +29,9 @@ export default new Vuex.Store({
     setSelected(state, selected) {
       state.selected = selected;
     },
+    setStatus(state, currentStatus) {
+      state.currentStatus = currentStatus;
+    },
   },
   actions: {
     async fetchApiKey({ state, commit, getters }) {
@@ -35,6 +40,8 @@ export default new Vuex.Store({
         'api_key', {
           params: {
             userId: user._id,
+            // for testing check status purpose
+            // userId: 'dsfdsfsdf',
             limit: 50,
             sort: 'name',
             sortdir: 1,
@@ -43,6 +50,7 @@ export default new Vuex.Store({
       );
 
       const [dandiKey] = data.filter(key => key.name === 'dandicli');
+      commit('setStatus', status);
       if (status === 200 && dandiKey) {
         // if there is an existing api key
         // send the key id to "PUT" endpoint for updating
@@ -61,6 +69,8 @@ export default new Vuex.Store({
 
         if (createStatus === 200) {
           commit('setApiKey', key);
+        } else {
+          commit('setStatus', status);
         }
       }
     },

@@ -126,6 +126,7 @@
               append-outer-icon="mdi-content-copy"
               v-model="apiKey"
               @click:append-outer="copyApiKey"
+              :error-messages="(currentStatus === 200) ? '' : 'Request failed'"
             />
           </v-list-item-content>
         </v-list-item>
@@ -155,9 +156,7 @@
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex';
 import { Search as GirderSearch, Authentication as GirderAuth } from '@girder/components/src/components';
-
 import { dandiUrl } from '@/utils';
-
 export default {
   data: () => ({
     dandiUrl,
@@ -171,7 +170,7 @@ export default {
       return !(this.name && this.description);
     },
     ...mapGetters(['loggedIn', 'user']),
-    ...mapState(['apiKey', 'girderRest', 'status']),
+    ...mapState(['apiKey', 'girderRest', 'currentStatus']),
     version() {
       return process.env.VUE_APP_VERSION;
     },
@@ -203,7 +202,6 @@ export default {
     async register_dandiset() {
       const { name, description } = this;
       const { status, data } = await this.girderRest.post('dandi', null, { params: { name, description } });
-
       if (status === 200) {
         this.name = '';
         this.description = '';
