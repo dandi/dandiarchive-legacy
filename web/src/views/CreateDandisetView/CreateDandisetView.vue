@@ -57,7 +57,7 @@ export default {
   },
   created() {
     if (!loggedIn()) {
-      this.$router.push({name: 'home'});
+      this.$router.push({ name: 'home' });
     }
   },
   methods: {
