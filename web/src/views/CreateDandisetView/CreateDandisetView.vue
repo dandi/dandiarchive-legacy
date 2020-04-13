@@ -40,6 +40,9 @@
 </template>
 
 <script>
+import { loggedIn } from '@/rest';
+import girderRest from '@/rest';
+
 export default {
   name: 'CreateDandisetView',
   data() {
@@ -53,16 +56,21 @@ export default {
       return !(this.name && this.description);
     },
   },
+  mounted() {
+    if (!loggedIn()) {
+      this.$router.push({name: 'home'});
+    }
+  },
   methods: {
     async register_dandiset() {
       const { name, description } = this;
-      const { status, data } = await this.girderRest.post('dandi', null, { params: { name, description } });
+      const { status, data } = await girderRest.post('dandi', null, { params: { name, description } });
 
       if (status === 200) {
         this.name = '';
         this.description = '';
         this.$router.push({
-          name: 'dandiset-metadata-viewer',
+          name: 'dandisetLanding',
           params: { id: data._id },
         });
       }
