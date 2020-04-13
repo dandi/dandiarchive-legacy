@@ -56,7 +56,7 @@ export default {
       return !(this.name && this.description);
     },
   },
-  mounted() {
+  created() {
     if (!loggedIn()) {
       this.$router.push({name: 'home'});
     }
