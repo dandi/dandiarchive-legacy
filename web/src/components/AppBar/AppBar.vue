@@ -59,9 +59,7 @@
       >
         New Dandiset
       </v-btn>
-      <UserMenu
-        v-if="loggedIn"
-      />
+      <UserMenu />
     </template>
     <template v-else>
       <span class="mr-1">
