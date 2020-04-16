@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <GirderRegister :oauthProviders="oauthProviders" />
+    <GirderRegister :oauth-providers="oauthProviders" />
   </v-container>
 </template>
 
@@ -19,14 +19,13 @@ export default {
   },
   asyncComputed: {
     async oauthProviders() {
-      return (
-        await girderRest.get('oauth/provider', {
-          params: {
-            redirect: `${window.location.href}${OauthTokenPrefix}{girderToken}${OauthTokenSuffix}`,
-            list: true,
-          },
-        })
-      ).data;
+      const { data } = await girderRest.get('oauth/provider', {
+        params: {
+          redirect: `/#/${OauthTokenPrefix}{girderToken}${OauthTokenSuffix}`,
+          list: true,
+        },
+      });
+      return data;
     },
   },
   watch: {
