@@ -1,5 +1,8 @@
 <template>
-  <DandisetsPage title="Search Dandisets" search />
+  <DandisetsPage
+    title="Search Dandisets"
+    search
+  />
 </template>
 
 <script>

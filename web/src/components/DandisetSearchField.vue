@@ -2,23 +2,21 @@
   <v-form @submit="performSearch">
     <v-text-field
       :value="$route.query.search"
-      @input="updateSearch"
       label="Search Dandisets"
       outlined
       solo
       hide-details
       :dense="dense"
       append-icon="mdi-magnify"
-      @click:append="performSearch"
       background-color="white"
       color="black"
+      @input="updateSearch"
+      @click:append="performSearch"
     />
   </v-form>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   name: 'DandisetSearchField',
   props: {
@@ -48,7 +46,7 @@ export default {
           name: 'searchDandisets',
           query: {
             search: currentSearch,
-          }
+          },
         });
       } else {
         this.$router.replace({
@@ -56,10 +54,10 @@ export default {
           query: {
             ...this.$route.query,
             search: currentSearch,
-          }
+          },
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>

@@ -8,7 +8,9 @@
         class="d-none d-md-block"
         vertical
       />
-      <div class="mx-6">Sort By:</div>
+      <div class="mx-6">
+        Sort By:
+      </div>
       <v-chip-group
         :value="sortOption"
         active-class="white light-blue--text"
@@ -22,8 +24,12 @@
         >
           {{ option.name }}
           <v-icon right>
-            <template v-if="sortDir === 1 || sortOption !== i">mdi-sort-ascending</template>
-            <template v-else>mdi-sort-descending</template>
+            <template v-if="sortDir === 1 || sortOption !== i">
+              mdi-sort-ascending
+            </template>
+            <template v-else>
+              mdi-sort-descending
+            </template>
           </v-icon>
         </v-chip>
       </v-chip-group>
@@ -133,11 +139,13 @@ export default {
           offset: (page - 1) * DANDISETS_PER_PAGE,
           sort: sortField,
           sortdir: sortDir,
-          search: search,
+          search,
         },
       });
 
-      return { data, headers, status, statusText };
+      return {
+        data, headers, status, statusText,
+      };
     },
   },
   watch: {
