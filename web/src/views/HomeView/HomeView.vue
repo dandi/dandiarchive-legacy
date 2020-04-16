@@ -50,18 +50,20 @@
       <StatsBar />
     </v-row>
     <v-row>
-      <Search />
+      <div class="full-width grey darken-2 pa-12">
+        <DandisetSearchField :dense="false" />
+      </div>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import StatsBar from '@/views/HomeView/StatsBar.vue';
-import Search from '@/views/HomeView/Search.vue';
+import DandisetSearchField from '@/components/DandisetSearchField.vue';
 
 export default {
   name: 'HomeView',
-  components: { StatsBar, Search },
+  components: { StatsBar, DandisetSearchField },
   created() {
     this.$store.dispatch('stats/reload');
   },
@@ -82,5 +84,9 @@ export default {
 
 .splash-text {
   max-width: 560px;
+}
+
+.full-width {
+  width: 100%;
 }
 </style>
