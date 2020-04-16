@@ -21,7 +21,7 @@ export default {
     async oauthProviders() {
       const { data } = await girderRest.get('oauth/provider', {
         params: {
-          redirect: `/#/${OauthTokenPrefix}{girderToken}${OauthTokenSuffix}`,
+          redirect: `${window.location.href}${OauthTokenPrefix}{girderToken}${OauthTokenSuffix}`,
           list: true,
         },
       });
