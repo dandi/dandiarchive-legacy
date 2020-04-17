@@ -120,28 +120,24 @@ class DandiResource(Resource):
             return Folder().find({"parentId": drafts["_id"]}, limit=limit, offset=offset, sort=sort)
         return Folder().find(
             {
-                "$and": [
-                    {"parentId": drafts["_id"]},
+                "parentId": drafts["_id"],
+                "$or": [
                     {
-                        "$or": [
-                            {
-                                "meta.dandiset.identifier": {
-                                    "$regex": re.compile(re.escape(search), re.IGNORECASE)
-                                }
-                            },
-                            {
-                                "meta.dandiset.name": {
-                                    "$regex": re.compile(re.escape(search), re.IGNORECASE)
-                                }
-                            },
-                            {
-                                "meta.dandiset.description": {
-                                    "$regex": re.compile(re.escape(search), re.IGNORECASE)
-                                }
-                            },
-                        ]
+                        "meta.dandiset.identifier": {
+                            "$regex": re.compile(re.escape(search), re.IGNORECASE)
+                        }
                     },
-                ]
+                    {
+                        "meta.dandiset.name": {
+                            "$regex": re.compile(re.escape(search), re.IGNORECASE)
+                        }
+                    },
+                    {
+                        "meta.dandiset.description": {
+                            "$regex": re.compile(re.escape(search), re.IGNORECASE)
+                        }
+                    },
+                ],
             },
             limit=limit,
             offset=offset,
