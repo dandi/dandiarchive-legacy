@@ -49,10 +49,10 @@
     <v-row class="flex-grow-0">
       <StatsBar />
     </v-row>
-    <v-row>
-      <div class="full-width grey darken-2 pa-12">
+    <v-row no-gutters>
+      <v-col class="grey darken-2 pa-12">
         <DandisetSearchField :dense="false" />
-      </div>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -84,9 +84,5 @@ export default {
 
 .splash-text {
   max-width: 560px;
-}
-
-.full-width {
-  width: 100%;
 }
 </style>
