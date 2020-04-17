@@ -108,7 +108,7 @@ class DandiResource(Resource):
     @access.public
     @autoDescribeRoute(
         Description("Search Dandisets")
-        .param("search", "Search Query", paramType="path")
+        .param("search", "Search Query", paramType="query")
         .pagingParams(defaultSort="meta.dandiset.identifier")
     )
     def search_dandisets(self, search, limit, offset, sort):
