@@ -7,12 +7,17 @@
       solo
       hide-details
       :dense="dense"
-      append-icon="mdi-magnify"
       background-color="white"
       color="black"
       @input="updateSearch"
       @click:append="performSearch"
-    />
+    >
+      <template v-slot:append>
+        <v-icon @click="performSearch">
+          mdi-magnify
+        </v-icon>
+      </template>
+    </v-text-field>
   </v-form>
 </template>
 
