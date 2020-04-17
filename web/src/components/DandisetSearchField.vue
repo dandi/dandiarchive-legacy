@@ -10,7 +10,6 @@
       background-color="white"
       color="black"
       @input="updateSearch"
-      @click:append="performSearch"
     >
       <template v-slot:append>
         <v-icon @click="performSearch">
