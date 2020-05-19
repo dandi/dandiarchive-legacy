@@ -1,7 +1,5 @@
 <template>
-  <v-app-bar
-    app
-  >
+  <v-app-bar app>
     <v-toolbar-title>
       <v-img
         alt="DANDI logo"
@@ -104,8 +102,8 @@ export default {
   computed: {
     loggedIn,
     returnObject() {
-      const { name, query } = this.$route;
-      return JSON.stringify({ name, query });
+      const { name, query, params } = this.$route;
+      return JSON.stringify({ name, query, params });
     },
   },
 };
