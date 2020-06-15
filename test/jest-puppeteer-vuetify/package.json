@@ -1,9 +1,16 @@
 {
   "name": "jest-puppeteer-vuetify",
   "version": "0.1.0",
-  "main": "src/index.js",
+  "description": "Test utilities to make locating Vuetify components easier",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
-    "@jest/globals": "*"
+    "@jest/globals": "*",
+    "@types/puppeteer": "^3.0.0",
+    "puppeteer": "^4.0.1",
+    "typescript": "^3.9.5"
   },
   "peerDependencies": {
     "jest": "*"

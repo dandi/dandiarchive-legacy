@@ -9,9 +9,11 @@ import { expect } from '@jest/globals';
 // version of "@jest/globals" implicitly installed by users resolves to the
 // same one as what's imported / depended upon by this package.
 
+import { Page } from 'puppeteer';
+
 // Some extensions to the Jest expect API to better support XPaths
 expect.extend({
-  async toContainXPath(page, xpath) {
+  async toContainXPath(page: Page, xpath: string) {
     try {
       await page.waitForXPath(xpath);
       return { pass: true };
@@ -19,7 +21,7 @@ expect.extend({
       return { pass: false, message: () => `XPath not found: ${xpath}` };
     }
   },
-  async toClickXPath(page, xpath) {
+  async toClickXPath(page: Page, xpath: string) {
     try {
       await (await page.waitForXPath(xpath)).click();
       return { pass: true };
@@ -27,7 +29,7 @@ expect.extend({
       return { pass: false, message: () => `XPath not found: ${xpath}` };
     }
   },
-  async toFillXPath(page, xpath, text) {
+  async toFillXPath(page: Page, xpath: string, text: string) {
     try {
       const input = await page.waitForXPath(xpath);
       // triple click to select all text currently in the element
