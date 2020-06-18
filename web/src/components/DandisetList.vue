@@ -7,10 +7,7 @@
       v-for="(item, i) in items"
       :key="item._id"
       selectable
-      :to="{
-        name: 'dandisetLanding',
-        params: { identifier: item.meta.dandiset.identifier, origin }
-      }"
+      :to="dandisetLink(item)"
     >
       <v-row
         no-gutters
@@ -73,7 +70,7 @@
 import moment from 'moment';
 import filesize from 'filesize';
 
-import { getDandisetContact } from '@/utils';
+import { getDandisetContact, draftVersion } from '@/utils';
 import { girderRest } from '@/rest';
 
 export default {
@@ -106,6 +103,16 @@ export default {
   methods: {
     filesize,
     getDandisetContact,
+    dandisetLink(dandiset) {
+      return {
+        name: 'dandisetLanding',
+        params: {
+          origin: this.origin,
+          identifier: dandiset.meta.dandiset.identifier,
+          version: draftVersion,
+        },
+      };
+    },
     formatDate(date) {
       return moment(date).format('LL');
     },

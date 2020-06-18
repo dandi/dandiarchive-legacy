@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 import SCHEMA from '@/assets/schema/dandiset.json';
 import NEW_SCHEMA from '@/assets/schema/dandiset_new.json';
@@ -174,9 +174,13 @@ export default {
   },
   methods: {
     navigateBack() {
+      this.setGirderDandiset(null);
+      this.setPublishDandiset(null);
+
       const route = this.$route.params.origin || { name: 'publicDandisets' };
       this.$router.push(route);
     },
+    ...mapMutations('dandiset', ['setGirderDandiset', 'setPublishDandiset']),
   },
 };
 </script>
