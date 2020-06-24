@@ -82,6 +82,14 @@ jobs:
           working_directory: web
           background: true
       - run:
+          name: Install jest-puppeteer-vuetify
+          command: yarn
+          working_directory: test/jest-puppeteer-vuetify
+      - run:
+          name: Build jest-puppeteer-vuetify
+          command: yarn run build
+          working_directory: test/jest-puppeteer-vuetify
+      - run:
           name: Install E2E tests
           command: yarn install --frozen-lockfile
           working_directory: test
