@@ -20,7 +20,7 @@ function isXPath(text: string): boolean {
  *
  * @param content the content of the element to form a predicate for
  */
-function contentAsPredicate(content: Strings): Predicate {
+function contentAsPredicate(content?: Strings): Predicate {
   if (Array.isArray(content)) {
     return content.map((c) => contentAsPredicate(c)).join('');
   }

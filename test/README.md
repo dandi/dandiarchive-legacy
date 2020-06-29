@@ -11,7 +11,7 @@ It needs to be built before tests can be run.
 # Build jest-puppeteer-vuetify
 cd test/jest-puppeteer-vuetify
 yarn
-yarn run build
+yarn build
 
 # Install test
 cd ..

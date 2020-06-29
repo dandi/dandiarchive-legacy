@@ -33,7 +33,7 @@ jobs:
           working_directory: web
       - run:
           name: Install jest-puppeteer-vuetify
-          command: yarn
+          command: yarn install --frozen-lockfile
           working_directory: test/jest-puppeteer-vuetify
       - run:
           name: Build jest-puppeteer-vuetify
@@ -83,7 +83,7 @@ jobs:
           background: true
       - run:
           name: Install jest-puppeteer-vuetify
-          command: yarn
+          command: yarn install --frozen-lockfile
           working_directory: test/jest-puppeteer-vuetify
       - run:
           name: Build jest-puppeteer-vuetify
