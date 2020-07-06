@@ -94,6 +94,7 @@
         >
           <v-col class="py-0">
             <ListingComponent
+              :field="key"
               :schema="schema.properties[key]"
               :data="extraFields[key]"
               root
