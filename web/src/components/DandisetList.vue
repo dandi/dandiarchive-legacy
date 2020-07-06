@@ -9,7 +9,7 @@
       selectable
       :to="{
         name: 'dandisetLanding',
-        params: { identifier: item.meta.dandiset.identifier, origin }
+        params: { identifier: item.meta.dandiset.identifier.identifier, origin }
       }"
     >
       <v-row
@@ -38,7 +38,7 @@
               >
                 <b>DRAFT</b>
               </v-chip>
-              DANDI:<b>{{ item.meta.dandiset.identifier }}</b>
+              DANDI:<b>{{ item.meta.dandiset.identifier.identifier }}</b>
               ·
               Contact <b>{{ getDandisetContact(item) }}</b>
               ·
@@ -97,7 +97,7 @@ export default {
     async dandisetStats() {
       const { items } = this;
       return Promise.all(items.map(async (item) => {
-        const { identifier } = item.meta.dandiset;
+        const { identifier } = item.meta.dandiset.identifier;
         const { data } = await girderRest.get(`/dandi/${identifier}/stats`);
         return data;
       }));

@@ -35,7 +35,7 @@
 
       <v-row :class="`${rowClasses} px-2`">
         <span :class="labelClasses">Identifier</span>
-        <span :class="itemClasses">{{ currentDandiset.meta.dandiset.identifier }}</span>
+        <span :class="itemClasses">{{ currentDandiset.meta.dandiset.identifier.identifier }}</span>
       </v-row>
 
       <template v-if="stats">
@@ -234,10 +234,8 @@ import {
 import moment from 'moment';
 import filesize from 'filesize';
 
-
 import { draftVersion, isPublishedVersion } from '@/utils';
 import DandisetOwnersDialog from './DandisetOwnersDialog.vue';
-
 
 export default {
   name: 'DandisetDetails',
@@ -312,7 +310,7 @@ export default {
   },
   asyncComputed: {
     async versions() {
-      const { identifier } = this.girderDandiset.meta.dandiset;
+      const { identifier } = this.girderDandiset.meta.dandiset.identifier;
 
       try {
         const { results } = await publishRest.versions(identifier);
@@ -325,7 +323,7 @@ export default {
       }
     },
     async stats() {
-      const { identifier } = this.currentDandiset.meta.dandiset;
+      const { identifier } = this.currentDandiset.meta.dandiset.identifier;
       const { data } = await girderRest.get(`/dandi/${identifier}/stats`);
       return data;
     },
@@ -340,7 +338,7 @@ export default {
     currentDandiset: {
       immediate: true,
       async handler(val) {
-        const { identifier } = val.meta.dandiset;
+        const { identifier } = val.meta.dandiset.identifier;
         this.fetchOwners(identifier);
       },
     },
@@ -359,7 +357,7 @@ export default {
           this.$store.dispatch('dandiset/fetchPublishDandiset', {
             version,
             girderId: this.girderDandiset._id,
-            identifier: this.girderDandiset.meta.dandiset.identifier,
+            identifier: this.girderDandiset.meta.dandiset.identifier.identifier,
           });
         } else {
           this.$store.commit('dandiset/setPublishDandiset', null);

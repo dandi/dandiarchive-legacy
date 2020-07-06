@@ -22,7 +22,7 @@
               color="primary"
               :to="{
                 name: 'dandisetLanding',
-                params: { identifier: location.meta.dandiset.identifier },
+                params: { identifier: location.meta.dandiset.identifier.identifier },
               }"
             >
               <v-icon>mdi-eye</v-icon>
