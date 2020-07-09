@@ -1,34 +1,15 @@
 <template>
   <div>
     <v-expansion-panels>
-      <template v-for="(contributor, i) in data">
+      <template v-for="(contributor, i) in resolvedData">
         <template v-if="resolvedSchemas[i]">
           <v-expansion-panel :key="contributor.name">
             <v-expansion-panel-header>{{ contributor.name }}</v-expansion-panel-header>
             <v-expansion-panel-content>
-              <v-list dense>
-                <v-list-item
-                  v-for="(item, contributorKey) in contributor"
-                  :key="contributorKey"
-                  dense
-                >
-                  <template v-if="Array.isArray(item)">
-                    <strong class="mr-2">
-                      {{ resolvedSchemas[i].properties[contributorKey].title }}:
-                    </strong>
-                    {{ item.join(', ') }}
-                  </template>
-                  <template v-else-if="typeof item === 'object'">
-                    <object-component :data="item" />
-                  </template>
-                  <template v-else>
-                    <strong class="mr-2">
-                      {{ resolvedSchemas[i].properties[contributorKey].title }}:
-                    </strong>
-                    {{ item }}
-                  </template>
-                </v-list-item>
-              </v-list>
+              <object-component
+                :data="contributor"
+                :schema="resolvedSchemas[i]"
+              />
             </v-expansion-panel-content>
           </v-expansion-panel>
         </template>
@@ -61,10 +42,17 @@ export default {
       required: true,
     },
   },
-  computed: {
-    resolvedSchemas() {
-      return this.resolveSchema(this.schema.items, this.data);
-    },
+  data() {
+    return {
+      resolvedSchemas: [],
+      resolvedData: [],
+    };
+  },
+  created() {
+    const [resolvedData, resolvedSchemas] = this.performReplacements(this.data, this.schema.items);
+
+    this.resolvedData = resolvedData;
+    this.resolvedSchemas = resolvedSchemas;
   },
   methods: {
     performReplacements(data, schema) {
