@@ -152,7 +152,12 @@ export default {
     },
   },
   async created() {
-    this.schema = await $RefParser.dereference(SCHEMA);
+    const schema = SCHEMA;
+
+    // TEMPORARY: Remove known circular reference
+    delete schema.definitions.PropertyValue.properties.valueReference;
+
+    this.schema = await $RefParser.dereference(schema, { dereference: { circular: false } });
   },
   methods: {
     navigateBack() {
