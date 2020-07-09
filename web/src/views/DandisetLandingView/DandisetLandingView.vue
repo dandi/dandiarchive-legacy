@@ -1,9 +1,9 @@
 <template>
-  <div v-page-title="meta.name">
+  <div v-page-title="metadata.name">
     <meta-editor
-      v-if="edit && Object.entries(meta).length"
+      v-if="edit && Object.entries(metadata).length"
       :schema="schema"
-      :model="meta"
+      :model="metadata"
       @close="edit = false"
     />
     <template v-else>
@@ -57,7 +57,7 @@
           <v-col>
             <DandisetMain
               :schema="schema"
-              :meta="meta"
+              :data="metadata"
               @edit="edit = true"
             />
           </v-col>
@@ -112,7 +112,7 @@ export default {
     };
   },
   computed: {
-    meta() {
+    metadata() {
       if (this.publishDandiset) {
         return { ...this.publishDandiset.meta.dandiset };
       }
