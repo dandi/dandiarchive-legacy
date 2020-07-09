@@ -20,7 +20,7 @@
 
       <v-col sm="6">
         <v-card class="mb-2">
-          <v-card-title>{{ meta.name }}</v-card-title>
+          <v-card-title>{{ data.name }}</v-card-title>
           <v-card-text class="pb-0">
             <template v-if="!errors || !errors.length">
               <v-alert
@@ -78,10 +78,10 @@
         <v-form>
           <v-card class="pa-2">
             <meta-node
-              v-model="meta"
+              v-model="data"
               class="pt-3"
               :schema="schema"
-              :initial="meta"
+              :initial="data"
             />
           </v-card>
         </v-form>
@@ -115,7 +115,7 @@
           </v-card-actions>
           <vue-json-pretty
             class="ma-2"
-            :data="meta"
+            :data="data"
             highlight-mouseover-node
           />
         </v-card>
@@ -155,7 +155,7 @@ export default {
     return {
       yamlOutput: true,
       errors: [],
-      meta: this.copyValue(this.model),
+      data: this.copyValue(this.model),
       invalidPermissionSnackbar: false,
     };
   },
@@ -167,14 +167,14 @@ export default {
       return this.yamlOutput ? 'text/yaml' : 'application/json';
     },
     output() {
-      return this.yamlOutput ? jsYaml.dump(this.meta) : JSON.stringify(this.meta, null, 2);
+      return this.yamlOutput ? jsYaml.dump(this.data) : JSON.stringify(this.data, null, 2);
     },
     ...mapState('dandiset', {
       id: (state) => (state.girderDandiset ? state.girderDandiset._id : null),
     }),
   },
   watch: {
-    meta: {
+    data: {
       handler(val) {
         this.validate(val);
         this.errors = this.validate.errors;
@@ -183,7 +183,7 @@ export default {
     },
   },
   created() {
-    this.validate(this.meta);
+    this.validate(this.data);
     this.errors = this.validate.errors;
   },
   methods: {
@@ -192,7 +192,7 @@ export default {
     },
     async save() {
       try {
-        const { status, data } = await girderRest.put(`folder/${this.id}/metadata`, { dandiset: this.meta });
+        const { status, data } = await girderRest.put(`folder/${this.id}/metadata`, { dandiset: this.data });
         if (status === 200) {
           this.setGirderDandiset(data);
           this.closeEditor();
