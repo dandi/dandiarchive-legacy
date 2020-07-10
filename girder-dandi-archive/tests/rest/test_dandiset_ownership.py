@@ -22,7 +22,7 @@ def multi_owner_dandiset(server, admin, user):
     assertStatusOk(resp)
 
     created_dandiset = resp.json
-    identifier = created_dandiset["meta"]["dandiset"]["identifier"]
+    identifier = created_dandiset["meta"]["dandiset"]["identifier"]["identifier"]
 
     assertStatusOk(
         server.request(
@@ -46,7 +46,7 @@ def test_initial_dandiset_owners(server, admin, admin_created_dandiset):
 
     The group members should always contain at least the dandiset creator.
     """
-    identifier = admin_created_dandiset["meta"]["dandiset"]["identifier"]
+    identifier = admin_created_dandiset["meta"]["dandiset"]["identifier"]["identifier"]
     resp = server.request(path=f"/dandi/{identifier}/owners", method="GET")
 
     assertStatusOk(resp)
@@ -64,7 +64,7 @@ def test_add_dandiset_owners(server, admin, user, admin_created_dandiset):
         403,
     )
 
-    identifier = admin_created_dandiset["meta"]["dandiset"]["identifier"]
+    identifier = admin_created_dandiset["meta"]["dandiset"]["identifier"]["identifier"]
 
     resp = server.request(path=f"/dandi/{identifier}/owners", method="GET", user=admin)
     assertStatusOk(resp)
@@ -109,7 +109,7 @@ def test_remove_dandiset_owners(server, admin, user, multi_owner_dandiset):
         200,
     )
 
-    identifier = multi_owner_dandiset["meta"]["dandiset"]["identifier"]
+    identifier = multi_owner_dandiset["meta"]["dandiset"]["identifier"]["identifier"]
 
     resp = server.request(path=f"/dandi/{identifier}/owners", method="GET", user=admin)
     assertStatusOk(resp)
@@ -165,7 +165,7 @@ def test_user_removed_from_owners(server, user, user_2, admin, admin_created_dan
     assert len(resp.json["users"]) == 1
     assert resp.json["users"][0]["id"] == str(user["_id"])
 
-    identifier = admin_created_dandiset["meta"]["dandiset"]["identifier"]
+    identifier = admin_created_dandiset["meta"]["dandiset"]["identifier"]["identifier"]
     request_body = json.dumps([user_2], default=str)
     resp = server.request(
         path=f"/dandi/{identifier}/owners",
@@ -208,7 +208,7 @@ def test_user_promoted_to_owner(server, user, user_2, admin, admin_created_dandi
     assert resp.json["users"][0]["id"] == str(user["_id"])
 
     # Add user to owners, which should promote existing WRITE permission to ADMIN
-    identifier = admin_created_dandiset["meta"]["dandiset"]["identifier"]
+    identifier = admin_created_dandiset["meta"]["dandiset"]["identifier"]["identifier"]
     resp = server.request(
         path=f"/dandi/{identifier}/owners",
         method="PUT",

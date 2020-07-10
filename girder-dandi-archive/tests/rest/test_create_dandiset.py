@@ -36,7 +36,11 @@ def test_create_dandiset(server, request_auth, drafts_collection, user):
             "description": "",
             "lowerName": "000001",
             "meta": {
-                "dandiset": {"identifier": "000001", "name": NAME_1, "description": DESCRIPTION_1}
+                "dandiset": {
+                    "identifier": {"identifier": "000001", "identifierType": "DANDI"},
+                    "name": NAME_1,
+                    "description": DESCRIPTION_1,
+                }
             },
             "name": "000001",
             "parentCollection": "collection",
@@ -71,7 +75,11 @@ def test_create_two_dandisets(server, request_auth, drafts_collection, user, dan
             "description": "",
             "lowerName": "000002",
             "meta": {
-                "dandiset": {"identifier": "000002", "name": NAME_2, "description": DESCRIPTION_2}
+                "dandiset": {
+                    "identifier": {"identifier": "000002", "identifierType": "DANDI"},
+                    "name": NAME_2,
+                    "description": DESCRIPTION_2,
+                }
             },
             "name": "000002",
             "parentCollection": "collection",

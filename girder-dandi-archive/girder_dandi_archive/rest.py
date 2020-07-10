@@ -73,7 +73,7 @@ class DandiResource(Resource):
         meta = {
             "name": name,
             "description": description,
-            "identifier": padded_identifier,
+            "identifier": {"identifier": padded_identifier, "identifierType": "DANDI"},
         }
 
         drafts = get_or_create_drafts_collection()
