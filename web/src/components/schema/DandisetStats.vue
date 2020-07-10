@@ -27,6 +27,11 @@ export default {
       type: [Object],
       required: true,
     },
+    options: {
+      type: Object,
+      required: false,
+      default: () => ({}),
+    },
   },
   computed: {
     resolvedSchema() {
