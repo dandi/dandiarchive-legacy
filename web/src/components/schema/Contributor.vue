@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     performReplacements(data, schema) {
-      const resolvedSchemas = this.resolveSchema(data, schema);
+      const resolvedSchemas = this.resolveSchemas(data, schema);
       const newData = [];
 
       data.forEach((contributor, i) => {
@@ -84,8 +84,8 @@ export default {
 
       return [newData, resolvedSchemas];
     },
-    resolveSchema(data, schema) {
-      // Could be made recursive to resolve nested 'anyOf'
+    resolveSchemas(data, schema) {
+      // Map each data element to the first schema that it is valid against
       const res = data.map((element) => schema.anyOf.find((s) => ajv.compile(s)(element)));
       return res;
     },
