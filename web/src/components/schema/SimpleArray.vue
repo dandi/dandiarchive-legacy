@@ -11,11 +11,6 @@ export default {
       type: Array,
       required: true,
     },
-    field: {
-      type: String,
-      required: false,
-      default: null,
-    },
   },
 };
 </script>
