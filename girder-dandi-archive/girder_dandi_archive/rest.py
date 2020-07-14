@@ -70,6 +70,7 @@ class DandiResource(Resource):
         )["value"]
         padded_identifier = f"{new_identifier_count:0{DANDISET_IDENTIFIER_LENGTH}d}"
 
+        user = self.getCurrentUser()
         meta = {
             "name": name,
             "description": description,
@@ -77,13 +78,11 @@ class DandiResource(Resource):
             "contributor": [
                 {
                     "identifier": "",
-                    "name": self.getCurrentUser()["firstName"] + " " + self.getCurrentUser()["lastName"],
-                    "email": self.getCurrentUser()["email"],
-                    "roleName": [
-                        "ContactPerson"
-                    ]
+                    "name": user["firstName"] + " " + user["lastName"],
+                    "email": user["email"],
+                    "roleName": ["ContactPerson"],
                 }
-            ]
+            ],
         }
 
         drafts = get_or_create_drafts_collection()
