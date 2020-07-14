@@ -74,6 +74,16 @@ class DandiResource(Resource):
             "name": name,
             "description": description,
             "identifier": padded_identifier,
+            "contributor": [
+                {
+                    "identifier": "",
+                    "name": self.getCurrentUser()["firstName"] + " " + self.getCurrentUser()["lastName"],
+                    "email": self.getCurrentUser()["email"],
+                    "roleName": [
+                        "ContactPerson"
+                    ]
+                }
+            ]
         }
 
         drafts = get_or_create_drafts_collection()
