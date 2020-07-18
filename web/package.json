@@ -15,7 +15,7 @@
     "core-js": "^3.6.5",
     "filesize": "^6.1.0",
     "js-yaml": "^3.14.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "vue": "^2.6.11",
     "vue-json-pretty": "^1.6.3",
