@@ -49,19 +49,23 @@ jobs:
       - checkout
       - run:
           name: Create a virtualenv for installation
-          command: |
-            python3 -m venv install_env
-            . install_env/bin/activate
+          command: python3 -m venv install_env
       - run:
           name: Upgrade pip
-          command: pip install -U pip
+          command: |
+            . install_env/bin/activate
+            pip install -U pip
       - run:
           name: Install girder-dandi-archive
-          command: pip install .
+          command: |
+            . ../install_env/bin/activate
+            pip install .
           working_directory: girder-dandi-archive
       - run:
           name: Run girder-dandi-archive in the background
-          command: girder serve
+          command: |
+            . ../install_env/bin/activate
+            girder serve
           working_directory: girder-dandi-archive
           background: true
       - run:
@@ -93,9 +97,7 @@ jobs:
       - checkout
       - run:
           name: Create a virtualenv for deployment
-          command: |
-            python3 -m venv deployment_env
-            . deployment_env/bin/activate
+          command: python3 -m venv deployment_env
       - run:
           name: Activate virtual environment
           command: echo ". $CIRCLE_WORKING_DIRECTORY/deployment_env/bin/activate" >> $BASH_ENV
