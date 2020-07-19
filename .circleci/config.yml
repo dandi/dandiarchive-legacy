@@ -1,8 +1,11 @@
-version: 2
+version: 2.1
 jobs:
   test-server:
+    parameters:
+      python_version:
+        type: string
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:<< parameters.python_version >>
       - image: circleci/mongo:4.2
         command: ["mongod", "--storageEngine", "ephemeralForTest", "--dbpath", "/data/db"]
     steps:
@@ -120,7 +123,10 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - test-server
+      - test-server:
+          matrix:
+            parameters:
+              python_version: ["3.6", "3.7", "3.8"]
       - test-gui
       - test-e2e:
           requires:
