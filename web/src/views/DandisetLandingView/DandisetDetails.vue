@@ -35,7 +35,7 @@
 
       <v-row :class="`${rowClasses} px-2`">
         <span :class="labelClasses">Identifier</span>
-        <span :class="itemClasses">{{ currentDandiset.meta.dandiset.identifier.identifier }}</span>
+        <span :class="itemClasses">{{ currentDandiset.meta.dandiset.identifier.value }}</span>
       </v-row>
 
       <template v-if="stats">
@@ -316,7 +316,7 @@ export default {
   },
   asyncComputed: {
     async stats() {
-      const { identifier } = this.currentDandiset.meta.dandiset.identifier;
+      const { value: identifier } = this.currentDandiset.meta.dandiset.identifier;
       const { data } = await girderRest.get(`/dandi/${identifier}/stats`);
       return data;
     },

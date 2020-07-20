@@ -34,7 +34,7 @@ def find_dandiset_by_identifier(identifier):
     """Use a unique identifier to find a dandiset in the dandiset drafts collection."""
     drafts = get_or_create_drafts_collection()
     return Folder().findOne(
-        {"parentId": drafts["_id"], "meta.dandiset.identifier.identifier": identifier}
+        {"parentId": drafts["_id"], "meta.dandiset.identifier.value": identifier}
     )
 
 

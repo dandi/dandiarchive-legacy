@@ -19,7 +19,7 @@ class DandiArchivePlugin(GirderPlugin):
         # Mongo is not guaranteed to use a singular index when executing the query.
         # meta.dandiset.identifier is specified first so that it is available as an
         # index for other queries that might need it.
-        Folder().ensureIndex(([("meta.dandiset.identifier.identifer", 1), ("parentId", 1)], {}))
+        Folder().ensureIndex(([("meta.dandiset.identifier.value", 1), ("parentId", 1)], {}))
 
         Setting().collection.update(
             {"key": DANDISET_IDENTIFIER_COUNTER}, {"$setOnInsert": {"value": 1}}, upsert=True,

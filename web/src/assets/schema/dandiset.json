@@ -1,6 +1,6 @@
 {
   "title": "Dandiset",
-  "description": "A body of structured information describing a DANDI dataset\n    ",
+  "description": "A body of structured information describing a DANDI dataset.",
   "type": "object",
   "properties": {
     "name": {
@@ -22,6 +22,9 @@
       "readonly": true,
       "anyOf": [
         {
+          "type": "string"
+        },
+        {
           "type": "string",
           "minLength": 1,
           "maxLength": 65536,
@@ -30,7 +33,7 @@
         {
           "allOf": [
             {
-              "$ref": "#/definitions/Identifier"
+              "$ref": "#/definitions/PropertyValue"
             }
           ]
         }
@@ -81,8 +84,8 @@
         "$ref": "#/definitions/About"
       }
     },
-    "study_target": {
-      "title": "Study Target",
+    "studyTarget": {
+      "title": "Studytarget",
       "type": "array",
       "items": {
         "anyOf": [
@@ -162,12 +165,20 @@
     "dandisetStats"
   ],
   "definitions": {
-    "Identifier": {
-      "title": "Identifier",
+    "PropertyValue": {
+      "title": "PropertyValue",
       "type": "object",
       "properties": {
-        "identifier": {
-          "title": "Identifier",
+        "maxValue": {
+          "title": "Maxvalue",
+          "type": "number"
+        },
+        "minValue": {
+          "title": "Minvalue",
+          "type": "number"
+        },
+        "unitCode": {
+          "title": "Unitcode",
           "anyOf": [
             {
               "type": "string"
@@ -180,22 +191,72 @@
             }
           ]
         },
-        "identifierType": {
-          "title": "Identifiertype",
-          "enum": [
-            "DOI",
-            "ORCID",
-            "ROR",
-            "DANDI",
-            "RRID",
-            "No identifier prefix"
-          ],
+        "unitText": {
+          "title": "Unittext",
           "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "valueReference": {
+          "$ref": "#/definitions/PropertyValue"
+        },
+        "propertyID": {
+          "title": "Propertyid",
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 65536,
+              "format": "uri"
+            },
+            {
+              "enum": [
+                "DOI",
+                "ORCID",
+                "ROR",
+                "DANDI",
+                "RRID",
+                "Unknown"
+              ],
+              "type": "string"
+            }
+          ]
         }
-      },
-      "required": [
-        "identifier"
-      ]
+      }
     },
     "Person": {
       "title": "Person",
@@ -214,12 +275,13 @@
               "format": "uri"
             },
             {
-              "$ref": "#/definitions/Identifier"
+              "$ref": "#/definitions/PropertyValue"
             }
           ]
         },
         "name": {
           "title": "Name",
+          "description": "Use the format: lastname, firstname ...",
           "type": "string"
         },
         "email": {
@@ -278,8 +340,8 @@
           "title": "Awardnumber",
           "type": "string"
         },
-        "affiliations": {
-          "title": "Affiliations",
+        "affiliation": {
+          "title": "Affiliation",
           "type": "array",
           "items": {
             "type": "string"
@@ -289,7 +351,7 @@
       "required": [
         "name",
         "roleName",
-        "affiliations"
+        "affiliation"
       ]
     },
     "Organization": {
@@ -309,12 +371,13 @@
               "format": "uri"
             },
             {
-              "$ref": "#/definitions/Identifier"
+              "$ref": "#/definitions/PropertyValue"
             }
           ]
         },
         "name": {
           "title": "Name",
+          "description": "Use the format: lastname, firstname ...",
           "type": "string"
         },
         "email": {
@@ -437,7 +500,7 @@
               "format": "uri"
             },
             {
-              "$ref": "#/definitions/Identifier"
+              "$ref": "#/definitions/PropertyValue"
             }
           ]
         },
@@ -464,7 +527,7 @@
               "format": "uri"
             },
             {
-              "$ref": "#/definitions/Identifier"
+              "$ref": "#/definitions/PropertyValue"
             }
           ]
         },
@@ -499,7 +562,7 @@
               "format": "uri"
             },
             {
-              "$ref": "#/definitions/Identifier"
+              "$ref": "#/definitions/PropertyValue"
             }
           ]
         },
@@ -569,77 +632,6 @@
         "url",
         "relation"
       ]
-    },
-    "PropertyValue": {
-      "title": "PropertyValue",
-      "type": "object",
-      "properties": {
-        "maxValue": {
-          "title": "Maxvalue",
-          "type": "number"
-        },
-        "minValue": {
-          "title": "Minvalue",
-          "type": "number"
-        },
-        "unitCode": {
-          "title": "Unitcode",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 65536,
-              "format": "uri"
-            }
-          ]
-        },
-        "unitText": {
-          "title": "Unittext",
-          "type": "string"
-        },
-        "value": {
-          "title": "Value",
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "integer"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "boolean"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "integer"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "valueReference": {
-          "$ref": "#/definitions/PropertyValue"
-        }
-      }
     },
     "DandisetStat": {
       "title": "DandisetStat",

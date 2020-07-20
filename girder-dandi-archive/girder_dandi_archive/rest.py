@@ -73,7 +73,7 @@ class DandiResource(Resource):
         meta = {
             "name": name,
             "description": description,
-            "identifier": {"identifier": padded_identifier, "identifierType": "DANDI"},
+            "identifier": {"value": padded_identifier, "propertyID": "DANDI"},
         }
 
         drafts = get_or_create_drafts_collection()
@@ -164,9 +164,7 @@ class DandiResource(Resource):
 
     @access.user
     @autoDescribeRoute(
-        Description("Get User Dandisets").pagingParams(
-            defaultSort="meta.dandiset.identifier.identifier"
-        )
+        Description("Get User Dandisets").pagingParams(defaultSort="meta.dandiset.identifier.value")
     )
     def get_user_dandisets(self, limit, offset, sort):
         user_id = self.getCurrentUser()["_id"]
@@ -174,9 +172,7 @@ class DandiResource(Resource):
 
     @access.public
     @autoDescribeRoute(
-        Description("List Dandisets").pagingParams(
-            defaultSort="meta.dandiset.identifier.identifier"
-        )
+        Description("List Dandisets").pagingParams(defaultSort="meta.dandiset.identifier.value")
     )
     def list_dandisets(self, limit, offset, sort):
         return dandiset_find({}, limit=limit, offset=offset, sort=sort)
@@ -185,7 +181,7 @@ class DandiResource(Resource):
     @autoDescribeRoute(
         Description("Search Dandisets")
         .param("search", "Search Query", paramType="query")
-        .pagingParams(defaultSort="meta.dandiset.identifier.identifier")
+        .pagingParams(defaultSort="meta.dandiset.identifier.value")
     )
     def search_dandisets(self, search, limit, offset, sort):
         if not search:
@@ -196,7 +192,7 @@ class DandiResource(Resource):
             {
                 "$or": [
                     {
-                        "meta.dandiset.identifier.identifier": {
+                        "meta.dandiset.identifier.value": {
                             "$regex": re.compile(re.escape(search), re.IGNORECASE)
                         }
                     },

@@ -166,12 +166,12 @@ export default {
     },
     fileBrowserLink() {
       const { version } = this;
-      const { identifier } = this.girderDandiset.meta.dandiset.identifier;
+      const { value: identifier } = this.girderDandiset.meta.dandiset.identifier;
 
       return { name: 'fileBrowser', params: { identifier, version } };
     },
     permalink() {
-      return `${dandiUrl}/dandiset/${this.data.identifier.identifier}/draft`;
+      return `${dandiUrl}/dandiset/${this.data.identifier.value}/draft`;
     },
     extraFields() {
       const { data, mainFields } = this;
@@ -189,7 +189,7 @@ export default {
   asyncComputed: {
     lockOwner: {
       async get() {
-        const { identifier } = this.girderDandiset.meta.dandiset.identifier;
+        const { value: identifier } = this.girderDandiset.meta.dandiset.identifier;
         const { data: owner } = await girderRest.get(`/dandi/${identifier}/lock/owner`);
         if (!owner) {
           return null;
@@ -202,7 +202,7 @@ export default {
   },
   methods: {
     async publish() {
-      await girderRest.post(`/dandi/${this.girderDandiset.meta.dandiset.identifier.identifier}`);
+      await girderRest.post(`/dandi/${this.girderDandiset.meta.dandiset.identifier.value}`);
     },
   },
 };

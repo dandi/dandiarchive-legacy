@@ -64,16 +64,19 @@ export default {
         const newContributor = { ...contributor };
 
         if (contributor.identifier) {
-          // Replace identifier with identifierType as the key,
-          // and the identifier itself as the value
-          if (typeof contributor.identifier === 'object' && contributor.identifier !== null) {
-            const { identifier, identifierType } = contributor.identifier;
+          // Replace identifier with propertyID as the key,
+          // and the value as the value
+          if (
+            typeof contributor.identifier === 'object'
+            && contributor.identifier
+          ) {
+            const { value, propertyID } = contributor.identifier;
 
-            if (identifierType) {
-              newContributor[identifierType] = identifier;
+            if (propertyID && resolvedSchemas[i]) {
+              newContributor[propertyID] = value;
               delete newContributor.identifier;
 
-              resolvedSchemas[i].properties[identifierType] = { title: identifierType };
+              resolvedSchemas[i].properties[propertyID] = { title: propertyID };
               delete resolvedSchemas[i].identifier;
             }
           }
@@ -85,7 +88,6 @@ export default {
       return [newData, resolvedSchemas];
     },
     resolveSchemas(data, schema) {
-      // Map each data element to the first schema that it is valid against
       const res = data.map((element) => schema.anyOf.find((s) => ajv.compile(s)(element)));
       return res;
     },

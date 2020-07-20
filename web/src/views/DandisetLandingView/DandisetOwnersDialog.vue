@@ -88,7 +88,6 @@ import { girderRest, user } from '@/rest';
 import { mapState, mapMutations } from 'vuex';
 import _ from 'lodash';
 
-
 const userFormatConversion = (users) => users.map(({
   _id, _accessLevel, login, firstName, lastName,
 }) => ({
@@ -151,7 +150,7 @@ export default {
       this.$emit('close');
     },
     async save() {
-      const { identifier } = this.girderDandiset.meta.dandiset;
+      const { value: identifier } = this.girderDandiset.meta.dandiset.identifier;
       const formattedOwners = this.newOwners.map((owner) => ({ _id: owner.id }));
 
       const { data } = await girderRest.put(`/dandi/${identifier}/owners`, formattedOwners);

@@ -180,7 +180,7 @@ export default {
       }
       return Promise.all(this.girderDandisetRequest.data.map(
         async (dandiset) => publishRest.mostRecentVersion(
-          dandiset.meta.dandiset.identifier.identifier,
+          dandiset.meta.dandiset.identifier.value,
         ),
       ));
     },
