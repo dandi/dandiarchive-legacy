@@ -29,7 +29,7 @@
         </v-btn>
         <template v-if="publishDandiset === null">
           <v-tooltip
-            left
+            bottom
             :disabled="editDisabledMessage === null"
           >
             <template v-slot:activator="{ on }">
@@ -47,9 +47,19 @@
                   </v-icon>
                   Edit metadata
                 </v-btn>
+              </div>
+            </template>
+            {{ editDisabledMessage }}
+          </v-tooltip>
+          <v-tooltip
+            bottom
+            :disabled="publishDisabledMessage === null"
+          >
+            <template v-slot:activator="{ on }">
+              <div v-on="on">
                 <v-btn
                   text
-                  :disabled="editDisabledMessage !== null || !user || !user.admin"
+                  :disabled="publishDisabledMessage !== null"
                   @click="publish"
                 >
                   <v-icon
@@ -62,7 +72,7 @@
                 </v-btn>
               </div>
             </template>
-            {{ editDisabledMessage }}
+            {{ publishDisabledMessage }}
           </v-tooltip>
         </template>
       </v-row>
@@ -143,17 +153,26 @@ export default {
     loggedIn,
     user,
     editDisabledMessage() {
-      if (!this.loggedIn) {
-        return 'You must be logged in to edit.';
-      }
+      // TODO: Uncomment below once editor is updated to handle new schema
+      return 'Editor functionality coming soon...';
 
-      if (!this.girderDandiset) {
-        return null;
-      }
+      // if (!this.loggedIn) {
+      //   return 'You must be logged in to edit.';
+      // }
 
-      if (this.girderDandiset._accessLevel < 1) {
-        return 'You do not have permission to edit this dandiset.';
-      }
+      // if (!this.girderDandiset) {
+      //   return null;
+      // }
+
+      // if (this.girderDandiset._accessLevel < 1) {
+      //   return 'You do not have permission to edit this dandiset.';
+      // }
+
+      // return null;
+    },
+    publishDisabledMessage() {
+      if (!this.user) { return 'You must be logged in to publish'; }
+      if (!this.user.admin) { return 'You do not have permission to publish'; }
 
       if (this.lockOwner != null) {
         if (this.lockOwner.email === 'publish@dandiarchive.org') {
