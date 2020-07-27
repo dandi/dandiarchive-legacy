@@ -43,7 +43,7 @@ def test_create_dandiset(server, request_auth, drafts_collection, user):
                     "contributor": [
                         {
                             "identifier": "",
-                            "name": user["firstName"] + " " + user["lastName"],
+                            "name": f"{user['firstName']} {user['lastName']}",
                             "email": user["email"],
                             "roleName": ["ContactPerson"],
                         }
@@ -90,7 +90,7 @@ def test_create_two_dandisets(server, request_auth, drafts_collection, user, dan
                     "contributor": [
                         {
                             "identifier": "",
-                            "name": user["firstName"] + " " + user["lastName"],
+                            "name": f"{user['firstName']} {user['lastName']}",
                             "email": user["email"],
                             "roleName": ["ContactPerson"],
                         }

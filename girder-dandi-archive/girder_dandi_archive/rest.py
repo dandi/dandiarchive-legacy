@@ -78,7 +78,7 @@ class DandiResource(Resource):
             "contributor": [
                 {
                     "identifier": "",
-                    "name": user["firstName"] + " " + user["lastName"],
+                    "name": f"{user['firstName']} {user['lastName']}",
                     "email": user["email"],
                     "roleName": ["ContactPerson"],
                 }
