@@ -1,13 +1,9 @@
 import pytest
 from rest_utils import DESCRIPTION_1, DESCRIPTION_2, NAME_1, NAME_2
 
-from girder.models.collection import Collection
-from girder.models.folder import Folder
 from girder.models.token import Token, TokenScope
 from girder.models.user import User
 from pytest_girder.assertions import assertStatusOk
-
-from girder_dandi_archive.util import get_or_create_drafts_collection
 
 
 @pytest.fixture
@@ -21,21 +17,6 @@ def request_auth(request, user, read_write_token):
         return {"user": user}
     elif request.param == "read_write_token":
         return {"token": read_write_token}
-
-
-@pytest.fixture(autouse=True)
-def drafts_collection(db):
-    red_herring_collection = Collection().createCollection(
-        "red_herring_collection", reuseExisting=True
-    )
-    # A folder that matches dandiset metadata, but not in drafts collection.
-    red_herring_dandiset_000001_folder = Folder().createFolder(
-        parent=red_herring_collection, parentType="collection", name="000001", public=True,
-    )
-    meta = {"dandiset": {"name": "red", "description": "herring", "identifier": "000001"}}
-    Folder().setMetadata(red_herring_dandiset_000001_folder, meta)
-
-    return get_or_create_drafts_collection()
 
 
 @pytest.fixture

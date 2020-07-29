@@ -15,6 +15,7 @@ from girder.models.setting import Setting
 from girder.models.user import User
 
 from . import locking
+from .constants import SCHEMA_MINIMUM_VERSION
 from .settings import PUBLISH_API_KEY, PUBLISH_API_URL
 from .util import (
     dandiset_find,
@@ -74,6 +75,7 @@ class DandiResource(Resource):
             "name": name,
             "description": description,
             "identifier": padded_identifier,
+            "schemaVersion": SCHEMA_MINIMUM_VERSION,
         }
 
         drafts = get_or_create_drafts_collection()

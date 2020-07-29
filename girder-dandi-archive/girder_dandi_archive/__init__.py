@@ -8,6 +8,7 @@ from girder_user_quota.settings import PluginSettings as UserQuotaPluginSettings
 
 from . import locking
 from .rest import DandiResource
+from .schema_validation import validate_schema
 from .util import DANDISET_IDENTIFIER_COUNTER
 
 
@@ -42,3 +43,5 @@ class DandiArchivePlugin(GirderPlugin):
         # TODO file save
         # TODO file remove
         # TODO file move
+
+        events.bind("model.folder.validate", "folder_metadata_validator", validate_schema)
