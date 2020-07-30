@@ -1,3 +1,5 @@
+from semantic_version import Version
+
 from girder.exceptions import ValidationException
 
 from .constants import SCHEMA_MINIMUM_VERSION
@@ -11,11 +13,14 @@ def validate_schema(event):
         return
     dandiset = meta["dandiset"]
     if "schemaVersion" not in dandiset:
-        raise ValidationException("No schema version specified on folder")
+        raise ValidationException(
+            "Missing required metadata field 'schemaVersion'. "
+            "Check that your client is up to date."
+        )
     schema_version = dandiset["schemaVersion"]
-    # TODO this will break if MINIMUM_VERSION ever has 2-digit numbers
-    if schema_version < SCHEMA_MINIMUM_VERSION:
+    if Version(schema_version) < Version(SCHEMA_MINIMUM_VERSION):
         raise ValidationException(
             f"Schema version {schema_version} "
-            f"is less than the minimum version {SCHEMA_MINIMUM_VERSION}"
+            f"is less than the minimum version {SCHEMA_MINIMUM_VERSION}. "
+            "Check that your client is up to date."
         )

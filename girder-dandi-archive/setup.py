@@ -10,6 +10,7 @@ requirements = [
     "girder-oauth",
     "girder-sentry",
     "girder-user-quota>=3.0.12",
+    "semantic-version",
 ]
 
 setup(
