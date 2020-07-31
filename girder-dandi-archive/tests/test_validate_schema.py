@@ -23,7 +23,14 @@ def test_empty_metadata_does_not_validate(server, drafts_collection):
     )
 
 
-def test_current_version_validates(server, drafts_collection):
+def test_invalid_schema_version_does_not_validate(server, drafts_collection):
+    folder = Folder().createFolder(drafts_collection, "000001", parentType="collection")
+    with pytest.raises(ValidationException) as exception:
+        folder = Folder().setMetadata(folder, {"dandiset": {"schemaVersion": "notaschemaversion"}})
+    assert str(exception.value) == "Schema version notaschemaversion is not valid"
+
+
+def test_current_schema_version_validates(server, drafts_collection):
     folder = Folder().createFolder(drafts_collection, "000001", parentType="collection")
     folder = Folder().setMetadata(folder, {"dandiset": {"schemaVersion": SCHEMA_MINIMUM_VERSION}})
 

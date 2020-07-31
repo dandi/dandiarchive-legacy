@@ -1,4 +1,4 @@
-from semantic_version import Version
+from semantic_version import validate, Version
 
 from girder.exceptions import ValidationException
 
@@ -18,6 +18,8 @@ def validate_schema(event):
             "Check that your client is up to date."
         )
     schema_version = dandiset["schemaVersion"]
+    if not validate(schema_version):
+        raise ValidationException(f"Schema version {schema_version} is not valid")
     if Version(schema_version) < Version(SCHEMA_MINIMUM_VERSION):
         raise ValidationException(
             f"Schema version {schema_version} "
