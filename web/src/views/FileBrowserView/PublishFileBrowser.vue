@@ -122,7 +122,7 @@ export default {
         const { version, identifier, location } = this;
 
         this.loading = true;
-        const { data } = await publishRest.get(`dandisets/${identifier}/versions/${version}/assets/paths/`, {
+        const { data } = await publishRest.get(`api/dandisets/${identifier}/versions/${version}/assets/paths/`, {
           params: {
             path_prefix: location,
           },

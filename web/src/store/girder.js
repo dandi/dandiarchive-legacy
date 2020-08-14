@@ -1,4 +1,5 @@
-import { girderRest, loggedIn } from '@/rest';
+import { girderRest, publishRest, loggedIn } from '@/rest';
+import toggles from '@/featureToggle';
 
 export default {
   namespaced: true,
@@ -29,7 +30,11 @@ export default {
       }
     },
     async logout() {
-      await girderRest.logout();
+      if (toggles.UNIFIED_API) {
+        await publishRest.logout();
+      } else {
+        await girderRest.logout();
+      }
     },
   },
 };
