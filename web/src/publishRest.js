@@ -45,7 +45,7 @@ const publishRest = new Vue({
       try {
         await this.post('auth/token/logout');
       } catch (err) {
-        if (err.response.status !== 401) {
+        if (error.response && err.response.status !== 401) {
           throw err;
         }
       } finally {
@@ -59,7 +59,7 @@ const publishRest = new Vue({
         const { data } = await this.get('auth/users/me/');
         this.user = data;
       } catch (err) {
-        if (err.response.status !== 401) {
+        if (error.response && err.response.status !== 401) {
           throw err;
         }
         this.user = null;
