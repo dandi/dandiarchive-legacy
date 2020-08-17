@@ -21,13 +21,14 @@ Sentry.init({
 sync(store, router);
 
 girderRest.fetchUser().then(() => {
-  publishRest.fetchUser().then(() => {
-    new Vue({
-      provide: { girderRest },
-      router,
-      render: (h) => h(App),
-      store,
-      vuetify,
-    }).$mount('#app');
-  });
+  // Eventually this will need to be a blocking action
+  // For now it's fine not to have a working publish service running
+  publishRest.fetchUser();
+  new Vue({
+    provide: { girderRest },
+    router,
+    render: (h) => h(App),
+    store,
+    vuetify,
+  }).$mount('#app');
 });
