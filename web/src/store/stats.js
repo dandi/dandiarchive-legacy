@@ -1,4 +1,5 @@
-import { girderRest } from '@/rest';
+import { girderRest, publishRest } from '@/rest';
+import toggles from '@/featureToggle';
 
 export default {
   namespaced: true,
@@ -24,7 +25,7 @@ export default {
   },
   actions: {
     async reload({ commit }) {
-      const { data } = await girderRest.get('dandi/stats');
+      const { data } = await ((toggles.UNIFIED_API) ? publishRest.get('api/stats/') : girderRest.get('dandi/stats'));
       commit('setStats', { stats: data });
     },
   },
