@@ -1,0 +1,24 @@
+name: Test Docker
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up environment
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Build Docker images
+      run: docker-compose build
+      working-directory: docker
+    - name: Bring up Docker instances
+      run: docker-compose up -d
+      working-directory: docker
+      # TODO: run dandi-cli tests addin/enabling those which would talk to this instance
+    - name: Shut down Docker instances
+      run: docker-compose down
+      working-directory: docker
