@@ -23,7 +23,7 @@ jobs:
       run: test "$(docker wait docker_provision_1)" = 0
     - name: Show provision logs
       run: docker-compose logs provision
-      if: ${{ steps.provision-test.outcome == 'failure' }}
+      if: ${{ always() }}
       working-directory: docker
       # TODO: run dandi-cli tests addin/enabling those which would talk to this instance
     - name: Shut down Docker instances
