@@ -11,10 +11,48 @@
         align="center"
       >
         <v-col>
-          <a :href="permalink">
-            {{ permalink }}
-          </a>
+          Get shareable link
+          <v-menu
+            offset-y
+            left
+            :close-on-content-click="false"
+            min-width="500"
+            max-width="500"
+          >
+            <template v-slot:activator="{ on }">
+              <v-icon
+                color="primary"
+                v-on="on"
+              >
+                mdi-link
+              </v-icon>
+            </template>
+            <v-card>
+              <CopyText
+                class="mx-2"
+                :text="permalink"
+                icon-hover-text="Copy permalink to clipboard"
+              />
+            </v-card>
+          </v-menu>
         </v-col>
+        <DownloadDialog>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              text
+              v-on="on"
+            >
+              <v-icon
+                color="primary"
+                class="mr-2"
+              >
+                mdi-download
+              </v-icon>
+              Download
+              <v-icon>mdi-menu-down</v-icon>
+            </v-btn>
+          </template>
+        </DownloadDialog>
         <v-btn
           :to="fileBrowserLink"
           text
@@ -122,11 +160,15 @@ import { mapState, mapGetters } from 'vuex';
 import { dandiUrl } from '@/utils';
 import { girderRest, loggedIn, user } from '@/rest';
 
+import CopyText from '@/components/CopyText.vue';
+import DownloadDialog from './DownloadDialog.vue';
 import ListingComponent from './ListingComponent.vue';
 
 export default {
   name: 'DandisetMain',
   components: {
+    CopyText,
+    DownloadDialog,
     ListingComponent,
   },
   props: {
@@ -190,7 +232,7 @@ export default {
       return { name: 'fileBrowser', params: { identifier, version } };
     },
     permalink() {
-      return `${dandiUrl}/dandiset/${this.data.identifier.value}/draft`;
+      return `${dandiUrl}/dandiset/${this.data.identifier.value}/${this.version}`;
     },
     extraFields() {
       const { data, mainFields } = this;

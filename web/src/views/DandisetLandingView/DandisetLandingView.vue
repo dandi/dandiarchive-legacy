@@ -114,7 +114,10 @@ export default {
   computed: {
     metadata() {
       if (this.publishDandiset) {
-        return { ...this.publishDandiset.meta.dandiset };
+        return {
+          name: this.publishDandiset.name,
+          ...this.publishDandiset.meta.dandiset,
+        };
       }
 
       if (

@@ -1,21 +1,29 @@
-
 import axios from 'axios';
 import { RestClient } from '@girder/components/src';
 
-const apiRoot = process.env.VUE_APP_API_ROOT;
-const publishApiRoot = process.env.VUE_APP_PUBLISH_API_ROOT;
+// Ensure doesn't contain trailing slash
+const apiRoot = process.env.VUE_APP_API_ROOT.endsWith('/')
+  ? process.env.VUE_APP_API_ROOT.slice(0, -1)
+  : process.env.VUE_APP_API_ROOT;
+
+// Ensure contains trailing slash
+const publishApiRoot = process.env.VUE_APP_PUBLISH_API_ROOT.endsWith('/')
+  ? process.env.VUE_APP_PUBLISH_API_ROOT
+  : `${process.env.VUE_APP_PUBLISH_API_ROOT}/`;
 
 function girderize(publishedDandiset) {
   const { // eslint-disable-next-line camelcase
-    created, updated, dandi_id, version, metadata,
+    created, modified, dandi_id, version, metadata, name,
   } = publishedDandiset;
   return {
     created,
-    updated,
+    updated: modified,
     version,
-    name: dandi_id,
+    name,
     lowerName: dandi_id,
-    meta: metadata,
+    meta: {
+      dandiset: metadata,
+    },
   };
 }
 
@@ -25,7 +33,9 @@ const publishRest = axios.create({ baseURL: publishApiRoot });
 Object.assign(publishRest, {
   assetDownloadURI(asset) {
     const { uuid, version: { version, dandiset: { identifier } } } = asset;
-    return `${publishRest.defaults.baseURL}/dandisets/${identifier}/versions/${version}/assets/${uuid}/download`;
+    const { baseURL } = publishRest.defaults;
+
+    return `${baseURL}dandisets/${identifier}/versions/${version}/assets/${uuid}/download`;
   },
   async assets(identifier, version, config = {}) {
     try {
