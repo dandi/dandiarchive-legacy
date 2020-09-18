@@ -6,6 +6,7 @@ export default {
   state: {
     publishDandiset: null,
     girderDandiset: null,
+    draft: null,
     versions: null,
     loading: false, // No mutation, as we don't want this mutated by the user
     owners: null,
@@ -22,6 +23,9 @@ export default {
     setPublishDandiset(state, dandiset) {
       state.publishDandiset = dandiset;
     },
+    setDraft(state, draft) {
+      state.draft = draft;
+    },
     setVersions(state, versions) {
       state.versions = versions;
     },
@@ -33,6 +37,7 @@ export default {
     async uninitializeDandisets({ state, commit }) {
       commit('setPublishDandiset', null);
       commit('setGirderDandiset', null);
+      commit('setDraft', null);
       commit('setVersions', null);
       commit('setOwners', null);
       state.loading = false;
@@ -43,6 +48,7 @@ export default {
       dispatch('fetchGirderDandiset', { identifier });
       dispatch('fetchOwners', identifier);
 
+      dispatch('fetchDandisetDraft', { identifier });
       // Required below
       await dispatch('fetchDandisetVersions', { identifier });
 
@@ -59,6 +65,18 @@ export default {
         commit('setVersions', results);
       } catch (err) {
         commit('setVersions', []);
+      }
+
+      state.loading = false;
+    },
+    async fetchDandisetDraft({ state, commit }, { identifier }) {
+      state.loading = true;
+
+      try {
+        const draft = await publishRest.draft(identifier);
+        commit('setDraft', draft);
+      } catch (err) {
+        commit('setDraft', null);
       }
 
       state.loading = false;
