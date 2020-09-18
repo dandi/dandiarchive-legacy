@@ -131,9 +131,7 @@
                 :disabled="!manageOwnersDisabled"
                 left
               >
-                <template
-                  v-slot:activator="{ on: tooltipOn }"
-                >
+                <template v-slot:activator="{ on: tooltipOn }">
                   <div v-on="tooltipOn">
                     <v-btn
                       color="primary"
@@ -173,13 +171,13 @@
       <v-row :class="rowClasses">
         <v-col cols="12">
           <v-chip
-            v-for="owner in limitedOwners"
-            :key="owner.id"
+            v-for="owner in limitedOwnerNames"
+            :key="owner"
             color="light-blue lighten-4"
             text-color="light-blue darken-3"
             class="font-weight-medium ma-1"
           >
-            {{ owner.login }}
+            {{ owner }}
           </v-chip>
           <span
             v-if="numExtraOwners"
@@ -233,6 +231,7 @@ import moment from 'moment';
 import filesize from 'filesize';
 
 import { draftVersion } from '@/utils';
+import toggles from '@/featureToggle';
 import DandisetOwnersDialog from './DandisetOwnersDialog.vue';
 
 export default {
@@ -282,16 +281,21 @@ export default {
       return this.currentVersion === draftVersion;
     },
     manageOwnersDisabled() {
+      // TODO implement meaningful ownership check
+      if (toggles.UNIFIED_API) return true;
       if (!this.loggedIn || !this.owners) return true;
       return !this.owners.find((owner) => owner.id === this.user._id);
     },
-    limitedOwners() {
+    limitedOwnerNames() {
       if (!this.owners) return [];
-      return this.owners.slice(0, 5);
+      if (toggles.UNIFIED_API) {
+        return this.owners.slice(0, 5).map((owner) => owner.username);
+      }
+      return this.owners.slice(0, 5).map((owner) => owner.login);
     },
     numExtraOwners() {
       if (!this.owners) return 0;
-      return this.owners.length - this.limitedOwners.length;
+      return this.owners.length - this.limitedOwnerNames.length;
     },
     formattedSize() {
       const { stats } = this;
@@ -307,7 +311,7 @@ export default {
     ...mapState('dandiset', {
       girderDandiset: (state) => state.girderDandiset,
       publishDandiset: (state) => state.publishDandiset,
-      owners: (state) => state.owners,
+      owners: (state) => ((toggles.UNIFIED_API) ? state.draft?.owners : state.owners),
       publishedVersions: (state) => state.versions,
     }),
     ...mapGetters('dandiset', {
