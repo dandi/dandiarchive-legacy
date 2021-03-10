@@ -13,7 +13,7 @@ import '@/plugins/composition';
 import '@/plugins/girder';
 
 // Import custom behavior
-import '@/featureToggle';
+import featureToggles from '@/featureToggle';
 import '@/title';
 
 // Import internal items
@@ -29,7 +29,10 @@ Sentry.init({
 
 sync(store, router);
 
-Promise.all([publishRest.restoreLogin(), girderRest.fetchUser()]).then(() => {
+// Get login info from the correct server.
+const loginCall = featureToggles.DJANGO_API ? publishRest.restoreLogin() : girderRest.fetchUser();
+
+loginCall.then(() => {
   new Vue({
     setup() {
       provide('store', store);
