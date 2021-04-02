@@ -15,3 +15,8 @@ command = "yarn run build"
   VUE_APP_OAUTH_API_ROOT = "https://api-staging.dandiarchive.org/oauth/"
   VUE_APP_PUBLISH_API_ROOT = "https://api-staging.dandiarchive.org/api/"
   VUE_APP_SENTRY_ENVIRONMENT = "staging"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
