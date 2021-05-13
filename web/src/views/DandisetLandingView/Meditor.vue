@@ -1,22 +1,24 @@
 <template>
   <v-container>
     <v-row>
-      <v-snackbar
-        v-model="invalidPermissionSnackbar"
-        top
-        :timeout="2000"
-        color="error"
-      >
-        Save Failed: Insufficient Permissions
-        <v-btn
-          icon
-          @click="invalidPermissionSnackbar = false"
+      <v-col>
+        <v-snackbar
+          v-model="invalidPermissionSnackbar"
+          top
+          :timeout="2000"
+          color="error"
         >
-          <v-icon color="white">
-            mdi-close-circle
-          </v-icon>
-        </v-btn>
-      </v-snackbar>
+          Save Failed: Insufficient Permissions
+          <v-btn
+            icon
+            @click="invalidPermissionSnackbar = false"
+          >
+            <v-icon color="white">
+              mdi-close-circle
+            </v-icon>
+          </v-btn>
+        </v-snackbar>
+      </v-col>
 
       <v-col>
         <v-card class="mb-2">
@@ -97,53 +99,60 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-subheader>Click a field below to edit it.</v-subheader>
+      <v-col>
+        <v-subheader>Click a field below to edit it.</v-subheader>
+      </v-col>
     </v-row>
     <v-row class="px-2">
       <template v-for="propKey in Object.keys(complexSchema.properties)">
-        <v-dialog
+        <v-col
           v-if="renderField(complexSchema.properties[propKey])"
           :key="propKey"
-          eager
         >
-          <template v-slot:activator="{ on }">
-            <v-btn
-              outlined
-              class="mx-2 my-2"
-              :color="sectionButtonColor(propKey)"
-              v-on="on"
-            >
-              {{ complexSchema.properties[propKey].title || propKey }}
-            </v-btn>
-          </template>
-          <v-card class="pa-2 px-4">
-            <v-form
-              :ref="`${propKey}-form`"
-              v-model="complexModelValidation[propKey]"
-            >
-              <v-jsf
-                :value="complexModel[propKey]"
-                :schema="complexSchema.properties[propKey]"
-                :options="CommonVJSFOptions"
-                @input="setComplexModelProp(propKey, $event)"
-              />
-            </v-form>
-          </v-card>
-        </v-dialog>
+          <v-dialog
+            eager
+          >
+            <template v-slot:activator="{ on }">
+              <v-btn
+                outlined
+                class="mx-2 my-2"
+                :color="sectionButtonColor(propKey)"
+                v-on="on"
+              >
+                {{ complexSchema.properties[propKey].title || propKey }}
+              </v-btn>
+            </template>
+            <v-card class="pa-2 px-4">
+              <v-form
+                :ref="`${propKey}-form`"
+                v-model="complexModelValidation[propKey]"
+              >
+                <v-jsf
+                  :value="complexModel[propKey]"
+                  :schema="complexSchema.properties[propKey]"
+                  :options="CommonVJSFOptions"
+                  @input="setComplexModelProp(propKey, $event)"
+                />
+              </v-form>
+            </v-card>
+          </v-dialog>
+        </v-col>
       </template>
     </v-row>
     <v-divider class="my-5" />
     <v-row class="px-2">
-      <v-form
-        ref="basic-form"
-        v-model="basicModelValid"
-      >
-        <v-jsf
-          v-model="basicModel"
-          :schema="basicSchema"
-          :options="{...CommonVJSFOptions, hideReadOnly: true}"
-        />
-      </v-form>
+      <v-col>
+        <v-form
+          ref="basic-form"
+          v-model="basicModelValid"
+        >
+          <v-jsf
+            v-model="basicModel"
+            :schema="basicSchema"
+            :options="{...CommonVJSFOptions, hideReadOnly: true}"
+          />
+        </v-form>
+      </v-col>
     </v-row>
   </v-container>
 </template>

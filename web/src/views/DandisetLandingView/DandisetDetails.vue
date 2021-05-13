@@ -10,32 +10,40 @@
         no-gutters
         :class="rowClasses"
       >
-        <v-icon>mdi-account</v-icon>
-        <span :class="labelClasses">Contact</span>
-        <span :class="itemClasses">{{ contactName }}</span>
+        <v-col>
+          <v-icon>mdi-account</v-icon>
+          <span :class="labelClasses">Contact</span>
+          <span :class="itemClasses">{{ contactName }}</span>
+        </v-col>
       </v-row>
       <v-row
         no-gutters
         :class="rowClasses"
       >
-        <v-icon>mdi-calendar</v-icon>
-        <span :class="labelClasses">Created on</span>
-        <span :class="itemClasses">{{ created }}</span>
+        <v-col>
+          <v-icon>mdi-calendar</v-icon>
+          <span :class="labelClasses">Created on</span>
+          <span :class="itemClasses">{{ created }}</span>
+        </v-col>
       </v-row>
       <v-row
         no-gutters
         :class="rowClasses"
       >
-        <v-icon>mdi-update</v-icon>
-        <span :class="labelClasses">Last updated</span>
-        <span :class="itemClasses">{{ lastUpdated }}</span>
+        <v-col>
+          <v-icon>mdi-update</v-icon>
+          <span :class="labelClasses">Last updated</span>
+          <span :class="itemClasses">{{ lastUpdated }}</span>
+        </v-col>
       </v-row>
 
       <v-divider class="my-2" />
 
       <v-row :class="`${rowClasses} px-2`">
-        <span :class="labelClasses">Identifier</span>
-        <span :class="itemClasses">{{ currentDandiset.meta.dandiset.identifier }}</span>
+        <v-col>
+          <span :class="labelClasses">Identifier</span>
+          <span :class="itemClasses">{{ currentDandiset.meta.dandiset.identifier }}</span>
+        </v-col>
       </v-row>
 
       <template v-if="stats">
@@ -204,23 +212,25 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-timeline dense>
-          <v-timeline-item
-            v-for="version in versions"
-            :key="version.version"
-            small
-            right
-            :color="timelineVersionItemColor(version)"
-          >
-            <v-btn
-              text
-              class="font-weight-medium"
-              @click="setVersion(version)"
+        <v-col>
+          <v-timeline dense>
+            <v-timeline-item
+              v-for="version in versions"
+              :key="version.version"
+              small
+              right
+              :color="timelineVersionItemColor(version)"
             >
-              {{ version.version }}
-            </v-btn>
-          </v-timeline-item>
-        </v-timeline>
+              <v-btn
+                text
+                class="font-weight-medium"
+                @click="setVersion(version)"
+              >
+                {{ version.version }}
+              </v-btn>
+            </v-timeline-item>
+          </v-timeline>
+        </v-col>
       </v-row>
     </template>
   </v-card>

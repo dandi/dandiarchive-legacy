@@ -1,22 +1,24 @@
 <template>
   <v-container>
     <v-row>
-      <v-snackbar
-        v-model="invalidPermissionSnackbar"
-        top
-        :timeout="2000"
-        color="error"
-      >
-        Save Failed: Insufficient Permissions
-        <v-btn
-          icon
-          @click="invalidPermissionSnackbar = false"
+      <v-col>
+        <v-snackbar
+          v-model="invalidPermissionSnackbar"
+          top
+          :timeout="2000"
+          color="error"
         >
-          <v-icon color="white">
-            mdi-close-circle
-          </v-icon>
-        </v-btn>
-      </v-snackbar>
+          Save Failed: Insufficient Permissions
+          <v-btn
+            icon
+            @click="invalidPermissionSnackbar = false"
+          >
+            <v-icon color="white">
+              mdi-close-circle
+            </v-icon>
+          </v-btn>
+        </v-snackbar>
+      </v-col>
 
       <v-col sm="6">
         <v-card class="mb-2">

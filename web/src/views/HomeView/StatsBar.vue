@@ -20,11 +20,13 @@
           />
         </v-col>
         <!-- TODO dividers destroy the grid system breakpoints
-        <v-divider
-          :key="stat.name + '-divider'"
-          vertical
-          class="grey"
-        />
+        <v-col>
+          <v-divider
+            :key="stat.name + '-divider'"
+            vertical
+            class="grey"
+          />
+        </v-col>
         -->
       </template>
     </v-row>

@@ -1,9 +1,11 @@
 <template>
   <div>
     <v-row class="mx-2 my-2">
-      <h1 class="font-weight-regular">
-        {{ meta.name }}
-      </h1>
+      <v-col>
+        <h1 class="font-weight-regular">
+          {{ meta.name }}
+        </h1>
+      </v-col>
     </v-row>
     <v-card class="pb-2">
       <v-row
@@ -36,89 +38,103 @@
             </v-card>
           </v-menu>
         </v-col>
-        <DownloadDialog>
-          <template v-slot:activator="{ on }">
-            <v-btn
-              id="download"
-              text
-              v-on="on"
-            >
-              <v-icon
-                color="primary"
-                class="mr-2"
-              >
-                mdi-download
-              </v-icon>
-              Download
-              <v-icon>mdi-menu-down</v-icon>
-            </v-btn>
-          </template>
-        </DownloadDialog>
-        <v-btn
-          id="view-data"
-          :to="fileBrowserLink"
-          text
-        >
-          <v-icon
-            color="primary"
-            class="mr-2"
-          >
-            mdi-file-tree
-          </v-icon>
-          View Data
-        </v-btn>
-        <v-btn
-          id="view-edit-metadata"
-          text
-          @click="$emit('edit')"
-        >
-          <v-icon
-            color="primary"
-            class="mr-2"
-          >
-            {{ metadataButtonIcon }}
-          </v-icon>
-          {{ metadataButtonText }}
-        </v-btn>
-        <template v-if="!DJANGO_API || publishDandiset.version == 'draft'">
-          <v-tooltip
-            left
-            :disabled="editDisabledMessage === null"
-          >
+        <v-col>
+          <DownloadDialog>
             <template v-slot:activator="{ on }">
-              <div v-on="on">
-                <!-- TODO for now only admins can publish -->
-                <v-btn
-                  v-if="DJANGO_API"
-                  id="publish"
-                  text
-                  :disabled="editDisabledMessage !== null || !user || !user.admin"
-                  @click="publish"
+              <v-btn
+                id="download"
+                text
+                v-on="on"
+              >
+                <v-icon
+                  color="primary"
+                  class="mr-2"
                 >
-                  <v-icon
-                    color="success"
-                    class="mr-2"
-                  >
-                    mdi-publish
-                  </v-icon>
-                  Publish
-                </v-btn>
-              </div>
+                  mdi-download
+                </v-icon>
+                Download
+                <v-icon>mdi-menu-down</v-icon>
+              </v-btn>
             </template>
-            {{ editDisabledMessage }}
-          </v-tooltip>
-        </template>
+          </DownloadDialog>
+        </v-col>
+        <v-col>
+          <v-btn
+            id="view-data"
+            :to="fileBrowserLink"
+            text
+          >
+            <v-icon
+              color="primary"
+              class="mr-2"
+            >
+              mdi-file-tree
+            </v-icon>
+            View Data
+          </v-btn>
+        </v-col>
+        <v-col>
+          <v-btn
+            id="view-edit-metadata"
+            text
+            @click="$emit('edit')"
+          >
+            <v-icon
+              color="primary"
+              class="mr-2"
+            >
+              {{ metadataButtonIcon }}
+            </v-icon>
+            {{ metadataButtonText }}
+          </v-btn>
+        </v-col>
+        <v-col>
+          <template v-if="!DJANGO_API || publishDandiset.version == 'draft'">
+            <v-tooltip
+              left
+              :disabled="editDisabledMessage === null"
+            >
+              <template v-slot:activator="{ on }">
+                <div v-on="on">
+                  <!-- TODO for now only admins can publish -->
+                  <v-btn
+                    v-if="DJANGO_API"
+                    id="publish"
+                    text
+                    :disabled="editDisabledMessage !== null || !user || !user.admin"
+                    @click="publish"
+                  >
+                    <v-icon
+                      color="success"
+                      class="mr-2"
+                    >
+                      mdi-publish
+                    </v-icon>
+                    Publish
+                  </v-btn>
+                </div>
+              </template>
+              {{ editDisabledMessage }}
+            </v-tooltip>
+          </template>
+        </v-col>
       </v-row>
 
       <v-divider />
 
       <v-row :class="titleClasses">
-        <v-card-title class="font-weight-regular">
-          Description
-        </v-card-title>
+        <v-col>
+          <v-card-title class="font-weight-regular">
+            Description
+          </v-card-title>
+          <v-col />
+        </v-col>
       </v-row>
       <v-row class="mx-1 mb-4 px-4 font-weight-light">
-        {{ meta.description }}
+        <v-col>
+          {{ meta.description }}
+          <v-col />
+        </v-col>
       </v-row>
 
       <template v-for="key in Object.keys(extraFields).sort()">
@@ -128,9 +144,11 @@
             :key="`${key}-title`"
             :class="titleClasses"
           >
-            <v-card-title class="font-weight-regular">
-              {{ schema.properties[key].title || key }}
-            </v-card-title>
+            <v-col>
+              <v-card-title class="font-weight-regular">
+                {{ schema.properties[key].title || key }}
+              </v-card-title>
+            </v-col>
           </v-row>
           <v-row
             :key="key"

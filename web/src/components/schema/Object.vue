@@ -5,7 +5,9 @@
         v-if="val || (!val && !omitEmpty)"
         :key="key"
       >
-        <strong class="mr-2">{{ objectKey(key) }}:</strong> {{ renderedValue(val) }}
+        <v-col>
+          <strong class="mr-2">{{ objectKey(key) }}:</strong> {{ renderedValue(val) }}
+        </v-col>
       </v-row>
     </template>
   </div>
