@@ -74,7 +74,13 @@ const publishRest = new Vue({
       const { data } = await client.get('users/me/');
       return data;
     },
-    async apiKey(): Promise<string> {
+    async apiKey(refresh: boolean): Promise<string> {
+      // get a new API key for this user if refresh is true,
+      // even if one already exists
+      if (refresh) {
+        const { data } = await client.post('auth/token/');
+        return data;
+      }
       try {
         const { data } = await client.get('auth/token/');
         return data;

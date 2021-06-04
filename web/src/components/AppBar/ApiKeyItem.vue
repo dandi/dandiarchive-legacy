@@ -4,7 +4,7 @@
       <!-- ".stop" prevents closing the parent v-menu when this is clicked -->
       <v-btn
         icon
-        @click.stop="fetch"
+        @click.stop="fetch(true)"
       >
         <v-icon>mdi-reload</v-icon>
       </v-btn>
@@ -35,12 +35,12 @@ export default {
     };
   },
   created() {
-    this.fetch();
+    this.fetch(false);
   },
   methods: {
-    async fetch() {
+    async fetch(refresh) {
       if (toggles.DJANGO_API) {
-        this.apiKey = await publishRest.apiKey();
+        this.apiKey = await publishRest.apiKey(refresh);
       } else {
         let data;
         // parentheses required for using the destructure assignment
