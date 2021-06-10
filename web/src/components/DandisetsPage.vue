@@ -78,20 +78,16 @@ const DANDISETS_PER_PAGE = 8;
 
 const sortingOptions = [
   {
-    name: 'Created',
-    djangoField: 'created',
-  },
-  {
-    name: 'Modified',
-    djangoField: 'modified',
-  },
-  {
     name: 'Name',
     djangoField: 'name',
   },
   {
     name: 'Identifier',
     djangoField: 'id',
+  },
+  {
+    name: 'Modified',
+    djangoField: 'modified',
   },
 ];
 
