@@ -85,6 +85,10 @@ const sortingOptions = [
     name: 'Name',
     djangoField: 'name',
   },
+  {
+    name: 'Identifier',
+    djangoField: 'id',
+  },
 ];
 
 export default defineComponent({
