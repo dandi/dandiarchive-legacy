@@ -82,6 +82,10 @@ const sortingOptions = [
     djangoField: 'created',
   },
   {
+    name: 'Modified',
+    djangoField: 'modified',
+  },
+  {
     name: 'Name',
     djangoField: 'name',
   },
