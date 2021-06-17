@@ -24,7 +24,7 @@ class EditorInterface {
   private model: DandiModel;
 
   basicModel: Ref<DandiModel>;
-  complexModel: Ref<DandiModel>;
+  complexModel: DandiModel;
 
   schema: JSONSchema7;
   basicSchema: JSONSchema7;
@@ -47,7 +47,7 @@ class EditorInterface {
     this.complexSchema = computeComplexSchema(this.schema);
 
     this.basicModel = ref(filterModelWithSchema(this.model, this.basicSchema));
-    this.complexModel = ref(filterModelWithSchema(this.model, this.complexSchema));
+    this.complexModel = reactive(filterModelWithSchema(this.model, this.complexSchema));
 
     this.modelValid = computed(() => this.basicModelValid.value && this.complexModelValid.value);
     this.complexModelValidation = reactive(Object.keys(this.complexModel).reduce(
@@ -61,7 +61,7 @@ class EditorInterface {
 
   syncModel() {
     writeSubModelToMaster(this.basicModel.value, this.basicSchema, this.model);
-    writeSubModelToMaster(this.complexModel.value, this.complexSchema, this.model);
+    writeSubModelToMaster(this.complexModel, this.complexSchema, this.model);
   }
 
   getModel(): DandiModel {
