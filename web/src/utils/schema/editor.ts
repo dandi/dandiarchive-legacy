@@ -2,7 +2,7 @@ import type { JSONSchema7 } from 'json-schema';
 
 import Vue from 'vue';
 import {
-  computed, reactive, ref, ComputedRef,
+  computed, reactive, ref, ComputedRef, Ref,
 } from '@vue/composition-api';
 import { cloneDeep } from 'lodash';
 
@@ -23,8 +23,8 @@ class EditorInterface {
   // Not guaranteed to be up to date, use getModel()
   private model: DandiModel;
 
-  basicModel: DandiModel;
-  complexModel: DandiModel;
+  basicModel: Ref<DandiModel>;
+  complexModel: Ref<DandiModel>;
 
   schema: JSONSchema7;
   basicSchema: JSONSchema7;
@@ -46,8 +46,8 @@ class EditorInterface {
     this.basicSchema = computeBasicSchema(this.schema);
     this.complexSchema = computeComplexSchema(this.schema);
 
-    this.basicModel = reactive(filterModelWithSchema(this.model, this.basicSchema));
-    this.complexModel = reactive(filterModelWithSchema(this.model, this.complexSchema));
+    this.basicModel = ref(filterModelWithSchema(this.model, this.basicSchema));
+    this.complexModel = ref(filterModelWithSchema(this.model, this.complexSchema));
 
     this.modelValid = computed(() => this.basicModelValid.value && this.complexModelValid.value);
     this.complexModelValidation = reactive(Object.keys(this.complexModel).reduce(
@@ -60,8 +60,8 @@ class EditorInterface {
   }
 
   syncModel() {
-    writeSubModelToMaster(this.basicModel, this.basicSchema, this.model);
-    writeSubModelToMaster(this.complexModel, this.complexSchema, this.model);
+    writeSubModelToMaster(this.basicModel.value, this.basicSchema, this.model);
+    writeSubModelToMaster(this.complexModel.value, this.complexSchema, this.model);
   }
 
   getModel(): DandiModel {
