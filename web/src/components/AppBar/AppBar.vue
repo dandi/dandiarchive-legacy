@@ -81,44 +81,46 @@
 
     <v-spacer />
 
-    <template v-if="loggedIn">
-      <v-btn
-        :to="{ name: 'createDandiset' }"
-        exact
-        class="mx-3"
-        color="primary"
-        rounded
-      >
-        New Dandiset
-      </v-btn>
-      <UserMenu />
-    </template>
-    <template v-else>
-      <v-btn
-        v-if="!DJANGO_API"
-        :to="{ name: 'userRegister' }"
-        class="mx-1"
-        color="primary"
-        outlined
-        rounded
-      >
-        Create Account
-      </v-btn>
-      <v-btn
-        id="login"
-        class="mx-1"
-        color="primary"
-        rounded
-        @click="login"
-      >
-        Log In with GitHub
-      </v-btn>
-    </template>
+    <div v-if="!insideIFrame">
+      <template v-if="loggedIn">
+        <v-btn
+          :to="{ name: 'createDandiset' }"
+          exact
+          class="mx-3"
+          color="primary"
+          rounded
+        >
+          New Dandiset
+        </v-btn>
+        <UserMenu />
+      </template>
+      <template v-else>
+        <v-btn
+          v-if="!DJANGO_API"
+          :to="{ name: 'userRegister' }"
+          class="mx-1"
+          color="primary"
+          outlined
+          rounded
+        >
+          Create Account
+        </v-btn>
+        <v-btn
+          id="login"
+          class="mx-1"
+          color="primary"
+          rounded
+          @click="login"
+        >
+          Log In with GitHub
+        </v-btn>
+      </template>
+    </div>
   </v-app-bar>
 </template>
 
 <script>
-import { loggedIn, publishRest } from '@/rest';
+import { loggedIn, insideIFrame, publishRest } from '@/rest';
 import { dandiAboutUrl, dandiDocumentationUrl, dandiHelpUrl } from '@/utils/constants';
 import UserMenu from '@/components/AppBar/UserMenu.vue';
 import toggles from '@/featureToggle';
@@ -166,6 +168,7 @@ export default {
   },
   computed: {
     loggedIn,
+    insideIFrame,
     returnObject() {
       const { name, query, params } = this.$route;
       return JSON.stringify({ name, query, params });
