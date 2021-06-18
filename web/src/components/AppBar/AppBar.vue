@@ -96,16 +96,6 @@
       </template>
       <template v-else>
         <v-btn
-          v-if="!DJANGO_API"
-          :to="{ name: 'userRegister' }"
-          class="mx-1"
-          color="primary"
-          outlined
-          rounded
-        >
-          Create Account
-        </v-btn>
-        <v-btn
           id="login"
           class="mx-1"
           color="primary"
@@ -123,7 +113,6 @@
 import { loggedIn, insideIFrame, publishRest } from '@/rest';
 import { dandiAboutUrl, dandiDocumentationUrl, dandiHelpUrl } from '@/utils/constants';
 import UserMenu from '@/components/AppBar/UserMenu.vue';
-import toggles from '@/featureToggle';
 
 export default {
   name: 'AppBar',
@@ -176,9 +165,7 @@ export default {
   },
   methods: {
     login() {
-      if (toggles.DJANGO_API) {
-        publishRest.login();
-      }
+      publishRest.login();
     },
   },
 };
