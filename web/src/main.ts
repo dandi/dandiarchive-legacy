@@ -36,16 +36,7 @@ Vue.use(VueGtag, {
 }, router);
 
 async function loadUser() {
-  try {
-    await publishRest.restoreLogin();
-  } catch (e) {
-    // a status of 401 indicates login failed, so the exception should be supressed.
-    if (e.response.status === 401) {
-      return;
-    }
-    // any other kind of exception indicates an error that shouldn't occur
-    throw e;
-  }
+  return publishRest.restoreLogin();
 }
 
 loadUser().then(() => {
