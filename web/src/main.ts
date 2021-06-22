@@ -14,7 +14,6 @@ import '@/plugins/composition';
 import '@/plugins/girder';
 
 // Import custom behavior
-import toggles from '@/featureToggle';
 import '@/title';
 
 // Import internal items
