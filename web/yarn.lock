@@ -1001,10 +1001,10 @@
   resolved "https://registry.yarnpkg.com/@jsdevtools/ono/-/ono-7.1.3.tgz#9df03bbd7c696a5c58885c34aa06da41c8543796"
   integrity sha512-4JQNk+3mVzK3xh2rqd6RB4J46qUR19azEHBneZyTZM+c456qOrbbM/5xcR8huNCCcbVt7+UmizG6GuUvPvKUYg==
 
-"@koumoul/vjsf@2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@koumoul/vjsf/-/vjsf-2.0.3.tgz#499c1e80513269b32bbf5836ebf393126242897e"
-  integrity sha512-JuQ+WBDDUuTudk2vqtsCt7CBRGVgd6wg+TvTjozo4E9irvKSK+HquAYqUTvYVJN+yJ4K2DaC/x8fagTOgR2EYQ==
+"@koumoul/vjsf@2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@koumoul/vjsf/-/vjsf-2.0.4.tgz#c6ab31391d784f978b3938a1659942f2ac8e3551"
+  integrity sha512-SNlTad486lPr3o5zsI5XX2KnBWMASxeEGQ+OYLd0UL1/b7AiB1ZJD0Od5L5gI6GfuuCMafUWkWePq3J5Sdqndw==
   dependencies:
     "@mdi/js" "^5.5.55"
     ajv "^6.12.0"
