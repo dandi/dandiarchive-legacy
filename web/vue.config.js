@@ -3,7 +3,7 @@ const child_process = require('child_process');
 
 function getVersion() {
   try {
-    return child_process.execSync("git describe").toString();
+    return child_process.execSync('git describe').toString();
   } catch (err) {
     return process.env.COMMIT_REF;
   }
@@ -11,9 +11,9 @@ function getVersion() {
 
 function getGitRevision() {
   try {
-    return child_process.execSync("git rev-parse HEAD").toString();
+    return child_process.execSync('git rev-parse HEAD').toString();
   } catch (err) {
-    return "";
+    return '';
   }
 }
 
@@ -24,7 +24,7 @@ module.exports = {
   lintOnSave: false,
   transpileDependencies: [
     'vuetify',
-    '@koumoul/vjsf',
+    '@mvandenburgh/vjsf',
     '@girder/oauth-client',
   ],
   devServer: {
