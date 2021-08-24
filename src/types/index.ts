@@ -15,17 +15,24 @@ export interface Dandiset {
   contact_person?: string,
 }
 
+export interface ValidationError {
+  field: string,
+  message: string,
+}
+
 export interface Version {
   version: string,
   name: string,
   asset_count: number,
   size: number,
-  status: 'Pending' | 'Validating' | 'Valid' | 'Invalid',
+  status: 'Pending' | 'Validating' | 'Valid' | 'Invalid' | 'Published',
   validation_error?: string,
   created: string,
   modified: string,
   dandiset: Dandiset,
-  metadata?: object,
+  metadata?: any, // structure of this is dictated by the metadata schema
+  asset_validation_errors: ValidationError[],
+  version_validation_errors: ValidationError[],
 }
 
 export interface Asset {
