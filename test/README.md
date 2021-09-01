@@ -13,9 +13,10 @@ This is not generally an issue in development environments where Chrome is alrea
 Be aware of this when setting up CI or Docker images though.
 
 ## Running Tests
-You will need a running instance of the web app and API server.
+You will need a running instance of the web app and API server. You will also need the CLI installed.
 To get the web app running, follow the instructions in the README at the root of this repository.
-To get the API server running, follow the instructions in the [README in the `dandi-api` repo](https://github.com/dandi/dandi-api/blob/master/README.md)
+To get the API server running, follow the instructions in the [README in the `dandi-api` repo](https://github.com/dandi/dandi-api/blob/master/README.md).
+To install the CLI, run `pip install dandi`. It is recommended that you do so in a virtual environment and execute the following commands inside it.
 
 Assuming the web app is running at `http://localhost:8085`:
 ```bash
