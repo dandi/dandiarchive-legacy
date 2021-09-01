@@ -78,6 +78,9 @@ jobs:
             DJANGO_DANDI_DANDISETS_BUCKET_NAME: dandi-bucket
             DJANGO_CELERY_BROKER_URL: amqp://rabbitmq:5672/
       - run:
+          name: Install dandi-cli
+          command: pip install dandi
+      - run:
           name: Install E2E tests
           command: yarn install --frozen-lockfile
           working_directory: test
