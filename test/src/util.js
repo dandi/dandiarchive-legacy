@@ -1,3 +1,6 @@
+import { execSync } from 'child_process';
+import path from 'path';
+
 import {
   vAvatar,
   vBtn,
@@ -39,7 +42,7 @@ export async function login() {
 /**
  * Register a new user with a random username.
  *
- * @returns {object} { username, email, password, firstName, lastName }
+ * @returns {object} { username, email, password, firstName, lastName, apiKey }
  */
 export async function registerNewUser() {
   const username = `user${uniqueId()}`;
@@ -60,6 +63,9 @@ export async function registerNewUser() {
   // in terms of testing.
   await page.goto(page.url().replace('/accounts/login', '/accounts/signup'));
 
+  // save the server URL for later
+  const serverUrl = page.url().substring(0, page.url().indexOf('/accounts/signup'));
+
   // API pages are not styled with Vuetify, so we can't use the vHelpers
   await expect(page).toFillXPath('//input[@name="email"]', email);
   await expect(page).toFillXPath('//input[@name="password1"]', password);
@@ -69,11 +75,16 @@ export async function registerNewUser() {
   await expect(page).toClickXPath('//button');
   await waitForRequestsToFinish();
 
+  // Get the new user's API key
+  await page.goto(new URL('/api/auth/token/?format=json', serverUrl).href);
+  await waitForRequestsToFinish();
+  const apiKey = await page.$eval('*', (el) => el.innerText);
+
   await page.goto(CLIENT_URL, { timeout: 0 });
   await waitForRequestsToFinish();
 
   return {
-    username, email, password, firstName, lastName,
+    username, email, password, firstName, lastName, apiKey,
   };
 }
 
@@ -121,4 +132,14 @@ export async function logout() {
   await page.waitForTimeout(500);
   await expect(page).toClickXPath(vListItem(LOGOUT_BUTTON_TEXT, { action: vIcon('mdi-logout') }));
   await clearCookiesAndCache();
+}
+
+/**
+ * Uploads the specified test assets to the specified dandiset.
+ *
+ * @param {string} dandisetId
+ * @param {string} dataset
+ */
+export async function uploadAssets(dandisetId, assetFolderToUpload, apiKey) {
+  execSync(`cd ${path.join(__dirname, 'dandi-cli')} && ./upload.sh ${assetFolderToUpload} ${dandisetId} ${apiKey}`);
 }
