@@ -28,3 +28,5 @@ For example, to migrate to schema version 0.5.1, run:
 ```bash
 yarn migrate 0.5.1
 ```
+
+### One giant leap for mankind
