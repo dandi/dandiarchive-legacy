@@ -29,4 +29,4 @@ For example, to migrate to schema version 0.5.1, run:
 ```bash
 yarn migrate 0.5.1
 ```
-<!-- this is a comment that is being used as a test -->
+<!-- this is a very cool comment that is being used as a test -->
