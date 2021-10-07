@@ -31,6 +31,9 @@
               </v-icon>
               Download
               <v-spacer />
+              <v-icon right>
+                mdi-chevron-down
+              </v-icon>
             </v-btn>
           </template>
         </DownloadDialog>
@@ -55,6 +58,9 @@
               </v-icon>
               Cite As
               <v-spacer />
+              <v-icon right>
+                mdi-chevron-down
+              </v-icon>
             </v-btn>
           </template>
         </CiteAsDialog>
