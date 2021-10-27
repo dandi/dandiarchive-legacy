@@ -9,18 +9,30 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api';
+
 import AppBar from '@/components/AppBar/AppBar.vue';
 import DandiFooter from '@/components/DandiFooter.vue';
 import UserStatusBanner from '@/components/UserStatusBanner.vue';
 
-export default {
+export default defineComponent({
   components: {
     AppBar,
     DandiFooter,
     UserStatusBanner,
   },
-};
+  setup(props, ctx) {
+    const { $router } = ctx.root;
+
+    const redirectUrl: string|null = localStorage.getItem('dandiRedirectUrl');
+    if (redirectUrl) {
+      localStorage.removeItem('dandiRedirectUrl');
+      $router.push(redirectUrl);
+    }
+    store.dispatch.dandiset.fetchSchema();
+  },
+});
 </script>
 
 <style scoped>

@@ -178,6 +178,7 @@ export default defineComponent({
     ];
 
     function login() {
+      localStorage.setItem('dandiRedirectUrl', ctx.root.$route.fullPath);
       dandiRest.login();
     }
 
