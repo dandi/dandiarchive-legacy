@@ -68,9 +68,20 @@ export async function registerNewUser() {
   await expect(page).toFillXPath('//input[@name="password1"]', password);
   await expect(page).toFillXPath('//input[@name="password2"]', password);
 
-  // The locator is different in CI for some reason, just click the first button
+  // After the localStorage auto-redirect was added in
+  // https://github.com/dandi/dandiarchive/commit/08331aa03c5a2a2e05880b899d2435779e2909f5,
+  // puppeteer started tearing down the browser instance prematurely (immediately after
+  // clicking the "signup" button below). To get around this, we temporarily open a new
+  // tab which signals to puppeteer not to close the browser.
+  const tempPage = await browser.browserContexts()[1].newPage();
+  await tempPage.goto(CLIENT_URL)
+
+
+  await page.bringToFront();
+  // click signup button
   await expect(page).toClickXPath('//button');
   await waitForRequestsToFinish();
+  await page.reload();
 
   await expect(page).toFillXPath('//input[@name="First Name"]', firstName);
   await expect(page).toFillXPath('//input[@name="Last Name"]', lastName);
@@ -80,6 +91,7 @@ export async function registerNewUser() {
 
   await page.goto(CLIENT_URL, { timeout: 0 });
   await waitForRequestsToFinish();
+  await tempPage.close();
 
   return {
     username, email, password, firstName, lastName,
