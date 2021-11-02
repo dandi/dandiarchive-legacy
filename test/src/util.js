@@ -74,8 +74,7 @@ export async function registerNewUser() {
   // clicking the "signup" button below). To get around this, we temporarily open a new
   // tab which signals to puppeteer not to close the browser.
   const tempPage = await browser.browserContexts()[1].newPage();
-  await tempPage.goto(CLIENT_URL)
-
+  await tempPage.goto(CLIENT_URL);
 
   await page.bringToFront();
   // click signup button
