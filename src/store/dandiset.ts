@@ -9,6 +9,8 @@ import { dandiRest, user } from '@/rest';
 import { User, Version } from '@/types';
 import { draftVersion } from '@/utils/constants';
 
+import schema from './schema';
+
 interface DandisetState {
   dandiset: Version|null;
   versions: Version[]|null,
@@ -120,17 +122,8 @@ const dandisetModule = defineModule({
     },
     async fetchSchema(context: any) {
       const { commit } = dandisetActionContext(context);
-
-      const { schema_url: schemaUrl } = await dandiRest.info();
-      const res = await axios.get(schemaUrl);
-
-      if (res.status !== 200) {
-        throw new Error('Could not retrieve Dandiset Schema!');
-      }
-
-      const schema = await RefParser.dereference(res.data);
-
-      commit.setSchema(schema);
+      const dereferencedSchema = await RefParser.dereference(schema as any);
+      commit.setSchema(dereferencedSchema);
     },
     async fetchOwners(context: any, identifier) {
       const { commit } = dandisetActionContext(context);

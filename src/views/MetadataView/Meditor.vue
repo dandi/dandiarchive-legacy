@@ -169,7 +169,14 @@
           :schema="basicSchema"
           :options="{...CommonVJSFOptions, hideReadOnly: true}"
           @change="basicFormListener"
-        />
+        >
+          <template
+            slot="custom-tiptap"
+            slot-scope="context"
+          >
+            <v-jsf-tiptap v-bind="context" />
+          </template>
+        </v-jsf>
       </v-form>
     </v-row>
     <v-row
@@ -228,6 +235,8 @@ import { EditorInterface } from '@/utils/schema/editor';
 import MeditorTransactionTracker from '@/utils/transactions';
 import { Location } from 'vue-router';
 
+import VJsfTiptap from './v-jsf-tiptap.vue';
+
 function renderField(fieldSchema: JSONSchema7) {
   const { properties } = fieldSchema;
 
@@ -245,7 +254,7 @@ function renderField(fieldSchema: JSONSchema7) {
 
 export default defineComponent({
   name: 'Meditor',
-  components: { VJsf },
+  components: { VJsf, VJsfTiptap },
   props: {
     schema: {
       type: Object as PropType<JSONSchema7>,
