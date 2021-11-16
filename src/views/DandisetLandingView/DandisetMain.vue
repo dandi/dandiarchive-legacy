@@ -139,7 +139,7 @@
 
       <!-- TODO: Re-enable these tab components when the others are complete -->
 
-      <!-- <v-tabs
+      <v-tabs
         v-model="currentTab"
         background-color="grey lighten-5"
         class="ml-3"
@@ -155,16 +155,19 @@
           <v-icon>{{ tab.icon }}</v-icon>
           {{ tab.name }}
         </v-tab>
-      </v-tabs> -->
+      </v-tabs>
     </v-card>
 
     <!-- Dynamically render component based on current tab -->
-    <v-row class="justify-center">
+    <v-row
+      v-if="tabs[currentTab]"
+      class="justify-center"
+    >
       <v-col cols="11">
         <component
           :is="tabs[currentTab].component"
           v-if="tabs[currentTab]"
-          v-bind="{ schema, meta }"
+          v-bind="{ schema, meta, propKey: tabs[currentTab].propKey }"
         />
       </v-col>
     </v-row>
@@ -203,6 +206,7 @@ const tabs = [
     name: 'Contributors',
     component: ContributorsTab,
     icon: 'mdi-account',
+    propKey: 'contributor',
   },
   {
     name: 'Subject Matter',
