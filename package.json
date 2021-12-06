@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "lint:templates": "sh type-check.sh",
     "migrate": "node src/migrate.js"
   },
   "dependencies": {
@@ -56,6 +57,7 @@
     "sass-loader": "^10.2.0",
     "typescript": "^4.2.4",
     "vue-cli-plugin-vuetify": "^2.4.0",
+    "vue-template-babel-compiler": "^1.0.7",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.2"
   },

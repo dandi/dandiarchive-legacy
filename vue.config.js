@@ -1,3 +1,4 @@
+const VueTemplateBabelCompiler = require('vue-template-babel-compiler');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const child_process = require('child_process');
 
@@ -39,5 +40,13 @@ module.exports = {
     config
       .plugin('moment-locales')
       .use(MomentLocalesPlugin);
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap((options) => {
+        // eslint-disable-next-line no-param-reassign
+        options.compiler = VueTemplateBabelCompiler;
+        return options;
+      });
   },
 };
