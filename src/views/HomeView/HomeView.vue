@@ -48,13 +48,15 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from '@vue/composition-api';
+
 import StatsBar from '@/views/HomeView/StatsBar.vue';
 import DandisetSearchField from '@/components/DandisetSearchField.vue';
 
-export default {
+export default defineComponent({
   name: 'HomeView',
   components: { StatsBar, DandisetSearchField },
-};
+});
 </script>
 
 <style scoped>

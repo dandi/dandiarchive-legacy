@@ -11,8 +11,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/composition-api';
+import type { RenderOptions } from '@/components/schema/types';
 import ObjectComponent from './Object.vue';
-import type { RenderOptions } from './types';
 
 export default defineComponent({
   name: 'DandisetStats',

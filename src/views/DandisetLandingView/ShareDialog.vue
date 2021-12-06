@@ -29,7 +29,7 @@
         </v-btn>
       </v-card-title>
       <v-card-title class="text-h6">
-        {{ meta.name }}
+        {{ name }}
       </v-card-title>
       <v-card-text>
         <span class="font-weight-black">
@@ -50,7 +50,7 @@
             <ShareNetwork
               network="twitter"
               :url="permalink"
-              :title="meta.name"
+              :title="name"
               :twitter-user="twitterUser"
             >
               <v-icon
@@ -90,7 +90,7 @@ export default defineComponent({
   setup() {
     const currentDandiset = computed(() => store.state.dandiset.dandiset);
     const currentVersion = computed(() => store.getters.dandiset.version);
-    const meta = computed(() => currentDandiset.value?.metadata);
+    const name = computed(() => currentDandiset.value?.metadata?.name);
     const permalink = computed(() => {
       if (currentDandiset.value?.dandiset && currentVersion.value) {
         return `${dandiUrl}/dandiset/${currentDandiset.value?.dandiset.identifier}/${currentVersion.value}`;
@@ -101,7 +101,7 @@ export default defineComponent({
     const dialog = ref(false);
 
     return {
-      dialog, twitterUser, meta, permalink,
+      dialog, twitterUser, name, permalink,
     };
   },
 });

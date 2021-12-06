@@ -39,7 +39,7 @@ import { computed, defineComponent, PropType } from '@vue/composition-api';
 import type { JSONSchema7 } from 'json-schema';
 import type { JSONSchema7WithSubSchema } from '@/utils/schema/types';
 import _ from 'lodash';
-import type { RenderOptions } from './types';
+import type { RenderOptions } from '@/components/schema/types';
 
 export default defineComponent({
   name: 'Object',

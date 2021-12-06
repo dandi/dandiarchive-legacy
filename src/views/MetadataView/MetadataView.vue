@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="schema && Object.entries(meta).length"
+    v-if="meta && schema && Object.entries(meta ||{}).length"
     v-page-title="meta.name"
   >
     <meditor
@@ -38,7 +38,7 @@ export default defineComponent({
   setup(props) {
     const currentDandiset = computed(() => store.state.dandiset.dandiset);
     const schema = computed(() => store.state.dandiset.schema);
-    const meta = computed(() => (currentDandiset.value ? currentDandiset.value.metadata : {}));
+    const meta = computed(() => currentDandiset.value?.metadata);
     const userCanModifyDandiset = computed(() => store.getters.dandiset.userCanModifyDandiset);
 
     const renderMeditor = ref(true);

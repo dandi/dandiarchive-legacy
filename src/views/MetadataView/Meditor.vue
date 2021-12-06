@@ -122,10 +122,13 @@
     <v-row v-if="!readonly">
       <v-subheader>Click a field below to edit it.</v-subheader>
     </v-row>
-    <v-row class="px-2">
+    <v-row
+      v-if="complexSchema.properties"
+      class="px-2"
+    >
       <template v-for="propKey in Object.keys(complexSchema.properties)">
         <v-dialog
-          v-if="renderField(complexSchema.properties[propKey])"
+          v-if="complexSchema.properties && renderField(complexSchema.properties[propKey])"
           :key="propKey"
           eager
         >
@@ -136,7 +139,7 @@
               :color="sectionButtonColor(propKey)"
               v-on="on"
             >
-              {{ complexSchema.properties[propKey].title || propKey }}
+              {{ complexSchema.properties ? complexSchema.properties[propKey]['title'] : propKey }}
             </v-btn>
           </template>
           <v-card class="pa-2 px-4">
@@ -147,7 +150,7 @@
               <v-jsf
                 ref="complexRef"
                 :value="complexModel[propKey]"
-                :schema="complexSchema.properties[propKey]"
+                :schema="complexSchema.properties ?? ''"
                 :options="CommonVJSFOptions"
                 @input="setComplexModelProp(propKey, $event)"
                 @change="complexFormListener"
@@ -214,7 +217,6 @@ import type { JSONSchema7 } from 'json-schema';
 import {
   defineComponent, PropType, ref, computed, nextTick, Ref,
 } from '@vue/composition-api';
-
 import jsYaml from 'js-yaml';
 
 import VJsf from '@koumoul/vjsf/lib/VJsf';
@@ -228,7 +230,10 @@ import { EditorInterface } from '@/utils/schema/editor';
 import MeditorTransactionTracker from '@/utils/transactions';
 import { Location } from 'vue-router';
 
-function renderField(fieldSchema: JSONSchema7) {
+function renderField(fieldSchema: JSONSchema7|boolean): boolean {
+  if (typeof (fieldSchema) === 'boolean') {
+    return false;
+  }
   const { properties } = fieldSchema;
 
   if (fieldSchema.readOnly) { return false; }

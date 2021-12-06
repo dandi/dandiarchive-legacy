@@ -6,7 +6,7 @@ import {
 } from '@vue/composition-api';
 import { cloneDeep } from 'lodash';
 
-import { DandiModel } from './types';
+import { DandiModel } from '@/utils/schema/types';
 import {
   computeBasicSchema,
   computeComplexSchema,

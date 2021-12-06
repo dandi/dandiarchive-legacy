@@ -12,10 +12,12 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from '@vue/composition-api';
+
 import DandisetsPage from '@/components/DandisetsPage.vue';
 
-export default {
+export default defineComponent({
   name: 'MyDandisetsView',
   components: { DandisetsPage },
-};
+});
 </script>

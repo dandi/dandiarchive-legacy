@@ -10,7 +10,7 @@ import {
   BasicSchema,
   BasicArraySchema,
   ComplexSchema,
-} from './types';
+} from '@/utils/schema/types';
 
 export function computeBasicSchema(schema: JSONSchema7): JSONSchema7 {
   const newProperties = pickBy(schema.properties, (val): val is BasicSchema | BasicArraySchema => (

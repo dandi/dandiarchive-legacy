@@ -19,8 +19,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from '@vue/composition-api';
+import type { RenderOptions } from '@/components/schema/types';
 import ObjectComponent from './Object.vue';
-import type { RenderOptions } from './types';
 
 export default defineComponent({
   name: 'ObjectArray',
