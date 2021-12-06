@@ -59,6 +59,7 @@
     "vue-cli-plugin-vuetify": "^2.4.0",
     "vue-template-babel-compiler": "^1.0.7",
     "vue-template-compiler": "^2.6.11",
+    "vue-type-check": "^1.1.0",
     "vuetify-loader": "^1.7.2"
   },
   "postcss": {
