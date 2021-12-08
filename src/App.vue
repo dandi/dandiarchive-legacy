@@ -30,7 +30,6 @@ export default defineComponent({
       localStorage.removeItem('dandiRedirectUrl');
       $router.push(redirectUrl);
     }
-    store.dispatch.dandiset.fetchSchema();
   },
 });
 </script>
