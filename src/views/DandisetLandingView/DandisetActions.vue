@@ -87,21 +87,29 @@
         </v-btn>
       </v-row>
       <v-row no-gutters>
-        <v-btn
-          id="view-edit-metadata"
-          outlined
-          block
-          :to="meditorLink"
-        >
-          <v-icon
-            left
-            color="primary"
-          >
-            mdi-note-text
-          </v-icon>
-          <span>Metadata</span>
-          <v-spacer />
-        </v-btn>
+        <v-dialog width="75vw">
+          <template #activator="{ on }">
+            <v-btn
+              id="view-edit-metadata"
+              outlined
+              block
+              v-on="on"
+            >
+              <v-icon
+                left
+                color="primary"
+              >
+                mdi-note-text
+              </v-icon>
+              <span>Metadata</span>
+              <v-spacer />
+            </v-btn>
+          </template>
+          <MetadataView
+            :identifier="currentDandiset.dandiset.identifier"
+            :version="currentDandiset.version"
+          />
+        </v-dialog>
       </v-row>
     </div>
 
@@ -123,7 +131,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from '@vue/composition-api';
+import {
+  defineComponent, computed, ComputedRef,
+} from '@vue/composition-api';
 import { Location } from 'vue-router';
 
 import store from '@/store';
@@ -131,6 +141,7 @@ import store from '@/store';
 import DownloadDialog from './DownloadDialog.vue';
 import CiteAsDialog from './CiteAsDialog.vue';
 import ShareDialog from './ShareDialog.vue';
+import MetadataView from '../MetadataView/MetadataView.vue';
 
 export default defineComponent({
   name: 'DandisetActions',
@@ -138,6 +149,7 @@ export default defineComponent({
     CiteAsDialog,
     DownloadDialog,
     ShareDialog,
+    MetadataView,
   },
   setup() {
     const currentDandiset = computed(() => store.state.dandiset.dandiset);
@@ -158,23 +170,10 @@ export default defineComponent({
       };
     });
 
-    const meditorLink: ComputedRef<Location|null> = computed(() => {
-      if (!currentDandiset.value) {
-        return null;
-      }
-      const version: string = currentVersion.value;
-      const { identifier } = currentDandiset.value.dandiset;
-      return {
-        name: 'metadata',
-        params: { identifier, version },
-      };
-    });
-
     return {
       currentDandiset,
       currentVersion,
       fileBrowserLink,
-      meditorLink,
     };
   },
 });

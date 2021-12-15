@@ -139,7 +139,7 @@
       </v-row>
 
       <!-- // TODO: remove when redesign is implemented -->
-      <template v-for="key in Object.keys(extraFields).sort()">
+      <!-- <template v-for="key in Object.keys(extraFields).sort()">
         <template v-if="renderData(extraFields[key], schema.properties[key])">
           <v-divider :key="`${key}-divider`" />
           <v-row
@@ -163,7 +163,7 @@
             </v-col>
           </v-row>
         </template>
-      </template>
+      </template> -->
     </v-card>
   </div>
 </template>
@@ -182,7 +182,6 @@ import { DandisetStats } from '@/types';
 
 // TODO: delete DandisetContributors component after redesigned contributors list is implemented
 import DandisetContributors from './DandisetContributors.vue';
-import ListingComponent from './ListingComponent.vue';
 import ShareDialog from './ShareDialog.vue';
 
 // max description length before it's truncated and "see more" button is shown
@@ -202,7 +201,6 @@ function renderData(data: any, schema: any): boolean {
 export default defineComponent({
   name: 'DandisetMain',
   components: {
-    ListingComponent,
     ShareDialog,
     // TODO: delete DandisetContributors component after redesigned contributors list is implemented
     DandisetContributors,

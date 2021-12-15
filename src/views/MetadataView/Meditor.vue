@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-row>
       <v-snackbar
         v-model="invalidPermissionSnackbar"
@@ -19,7 +19,10 @@
       </v-snackbar>
 
       <v-col>
-        <v-card class="mb-2">
+        <v-card
+          class="mb-2"
+          outlined
+        >
           <v-card-title>
             <v-tooltip top>
               <template #activator="{ on }">
@@ -119,59 +122,67 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row v-if="!readonly">
-      <v-subheader>Click a field below to edit it.</v-subheader>
-    </v-row>
     <v-row class="px-2">
-      <template v-for="propKey in Object.keys(complexSchema.properties)">
-        <v-dialog
-          v-if="renderField(complexSchema.properties[propKey])"
-          :key="propKey"
-          eager
+      <v-tabs
+        v-model="tab"
+        background-color="grey darken-2"
+        slider-color="highlight"
+        dark
+        centered
+      >
+        <v-tab
+          key="tab-0"
+          class="font-weight-medium text-caption"
         >
-          <template #activator="{ on }">
-            <v-btn
-              outlined
-              class="mx-2 my-2"
-              :color="sectionButtonColor(propKey)"
-              v-on="on"
-            >
-              {{ complexSchema.properties[propKey].title || propKey }}
-            </v-btn>
-          </template>
+          General
+        </v-tab>
+        <v-tab
+          v-for="(propKey, i) in Object.keys(complexSchema.properties)"
+          :key="`tab-${i+1}`"
+          class="font-weight-medium text-caption"
+        >
+          {{ complexSchema.properties[propKey].title || propKey }}
+        </v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-model="tab">
+        <v-tab-item key="tab-0">
+          <v-form
+            ref="basic-form"
+            v-model="basicModelValid"
+            class="px-7 py-5"
+          >
+            <v-jsf
+              ref="basicRef"
+              v-model="basicModel"
+              :schema="basicSchema"
+              :options="{...CommonVJSFOptions, hideReadOnly: true}"
+              @change="basicFormListener"
+            />
+          </v-form>
+        </v-tab-item>
+        <v-tab-item
+          v-for="(propKey, i) in Object.keys(complexSchema.properties)"
+          :key="`tab-${i+1}`"
+        >
           <v-card class="pa-2 px-4">
             <v-form
               :ref="`${propKey}-form`"
               v-model="complexModelValidation[propKey]"
+              class="px-7"
             >
-              <v-jsf
-                ref="complexRef"
-                :value="complexModel[propKey]"
-                :schema="complexSchema.properties[propKey]"
+              <vjsf-wrapper
+                :prop-key="propKey"
+                :editor-interface="editorInterface"
                 :options="CommonVJSFOptions"
-                @input="setComplexModelProp(propKey, $event)"
-                @change="complexFormListener"
               />
             </v-form>
           </v-card>
-        </v-dialog>
-      </template>
+        </v-tab-item>
+      </v-tabs-items>
     </v-row>
     <v-divider class="my-5" />
-    <v-row class="px-2">
-      <v-form
-        ref="basic-form"
-        v-model="basicModelValid"
-      >
-        <v-jsf
-          ref="basicRef"
-          v-model="basicModel"
-          :schema="basicSchema"
-          :options="{...CommonVJSFOptions, hideReadOnly: true}"
-          @change="basicFormListener"
-        />
-      </v-form>
-    </v-row>
+    <v-row class="px-2" />
     <v-row
       v-if="exiting && modified"
       justify="center"
@@ -205,7 +216,7 @@
         </v-card>
       </v-dialog>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script lang="ts">
@@ -228,6 +239,8 @@ import { EditorInterface } from '@/utils/schema/editor';
 import MeditorTransactionTracker from '@/utils/transactions';
 import { Location } from 'vue-router';
 
+import VjsfWrapper from '@/views/MetadataView/VjsfWrapper.vue';
+
 function renderField(fieldSchema: JSONSchema7) {
   const { properties } = fieldSchema;
 
@@ -245,7 +258,7 @@ function renderField(fieldSchema: JSONSchema7) {
 
 export default defineComponent({
   name: 'Meditor',
-  components: { VJsf },
+  components: { VJsf, VjsfWrapper },
   props: {
     schema: {
       type: Object as PropType<JSONSchema7>,
@@ -263,6 +276,7 @@ export default defineComponent({
   setup(props, ctx) {
     const { model: modelProp, schema: schemaProp } = props;
     const invalidPermissionSnackbar = ref(false);
+    const tab = ref(null);
 
     const editorInterface = new EditorInterface(schemaProp, modelProp);
     const {
@@ -290,6 +304,14 @@ export default defineComponent({
       initialValidation: 'all',
       autoFixArrayItems: false,
       disableAll: props.readonly,
+      fieldProps: {
+        outlined: true,
+      },
+      arrayItemCardProps: {
+        outlined: true,
+      },
+      editMode: 'inline',
+      hideReadOnly: true,
     }));
     const currentDandiset = computed(() => store.state.dandiset.dandiset);
     const id = computed(() => currentDandiset.value?.dandiset.identifier);
@@ -404,6 +426,7 @@ export default defineComponent({
 
     return {
       allModelsValid: modelValid,
+      tab,
 
       basicSchema,
       basicModel,
@@ -439,6 +462,7 @@ export default defineComponent({
       setComplexModelProp,
 
       TransactionTracker,
+      editorInterface,
     };
   },
 });

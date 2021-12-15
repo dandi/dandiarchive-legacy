@@ -1,7 +1,8 @@
 <template>
-  <div
+  <v-card
     v-if="schema && Object.entries(meta).length"
     v-page-title="meta.name"
+    min-height="60vh"
   >
     <meditor
       v-if="renderMeditor"
@@ -10,7 +11,7 @@
       :readonly="!userCanModifyDandiset"
       @close="edit = false"
     />
-  </div>
+  </v-card>
 </template>
 
 <script lang="ts">
