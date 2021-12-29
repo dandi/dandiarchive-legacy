@@ -127,9 +127,9 @@ function formatDownloadCommand(identifier: string, version: string): string {
     return `dandi download https://dandiarchive.org/dandiset/${identifier}/draft`;
   }
   if (!version) {
-    return `dandi download DANDI:${identifier}`;
+    return `dandi download dandi:${identifier}`;
   }
-  return `dandi download DANDI:${identifier}/${version}`;
+  return `dandi download dandi:${identifier}/${version}`;
 }
 
 export default defineComponent({
