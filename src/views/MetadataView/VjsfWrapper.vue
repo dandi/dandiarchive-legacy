@@ -53,6 +53,7 @@
                       <v-btn
                         text
                         small
+                        @click="removeElement(i)"
                       >
                         <v-icon
                           color="error"
@@ -204,13 +205,13 @@ export default defineComponent({
     function setComplexModelProp(propKey: string, event: DandiModel): void {
       // @ts-ignore
       if (isArray.value) {
-        const currentValue = [...(props.editorInterface.complexModel[propKey] as any)];
+        const currentValue = [...(props.editorInterface.complexModel[propKey] as any)] as any;
         if (index.value >= 0) {
           currentValue[index.value] = { ...(currentValue[index.value] as DandiModel), ...event };
         } else {
-          index.value = currentValue.push(event) - 1;
+          currentValue.push(event) - 1;
         }
-        props.editorInterface.setComplexModelProp(propKey, currentValue as any);
+        props.editorInterface.setComplexModelProp(propKey, currentValue);
       } else {
         props.editorInterface.setComplexModelProp(propKey, event);
       }
@@ -220,11 +221,25 @@ export default defineComponent({
       setComplexModelProp(props.propKey, { ...value.value, schemaKey: type });
     }
 
+    function removeElement(index_to_remove: number) {
+      if (isArray.value) {
+        const currentValue = [...(props.editorInterface.complexModel[props.propKey] as any)] as any;
+        currentValue.splice(index_to_remove, 1);
+        props.editorInterface.setComplexModelProp(props.propKey, currentValue);
+        if (value.value === index_to_remove) {
+          index.value = -1;
+        } else if (value.value > index_to_remove) {
+          index.value -= 1;
+        }
+      }
+    }
+
     return {
       index,
       extendedOptions,
       setComplexModelProp,
       setType,
+      removeElement,
       value,
       schema,
       schemaTypes,
