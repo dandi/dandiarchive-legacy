@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { compile } = require('json-schema-to-typescript');
+
 const fs = require('fs');
 const path = require('path');
 
 const axios = require('axios');
-const { compile } = require('json-schema-to-typescript');
 
 /**
  * Migrates the TypeScript typings in src/schema.ts to the
@@ -12,7 +14,7 @@ const { compile } = require('json-schema-to-typescript');
  *
  * @param {string} version
  */
-async function migrate(version) {
+async function migrate(version: string) {
   const schemaUrl = `https://raw.githubusercontent.com/dandi/schema/master/releases/${version}/dandiset.json`;
 
   let data;
