@@ -74,6 +74,7 @@
           id="view-data"
           outlined
           block
+          :disabled="currentDandiset.dandiset.locked"
           :to="fileBrowserLink"
         >
           <v-icon

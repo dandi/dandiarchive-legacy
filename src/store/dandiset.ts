@@ -115,6 +115,9 @@ const dandisetModule = defineModule({
 
       try {
         const data = await dandiRest.specificVersion(identifier, sanitizedVersion);
+        if (data) {
+          data.dandiset.locked = data?.dandiset.embargo_status === 'UNEMBARGOING';
+        }
         commit.setDandiset(data);
       } catch (err) {
         commit.setDandiset(null);

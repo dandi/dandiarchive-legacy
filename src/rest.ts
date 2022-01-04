@@ -142,7 +142,7 @@ const dandiRest = new Vue({
         throw error;
       }
     },
-    async specificVersion(identifier: string, version: string) {
+    async specificVersion(identifier: string, version: string): Promise<Version | null> {
       try {
         const { data } = await client.get(`dandisets/${identifier}/versions/${version}/info/`);
         return data;
