@@ -11,7 +11,7 @@
     >
       <v-card class="pb-3">
         <v-card-title class="text-h5 font-weight-light">
-          Release Dandiset
+          Unembargo Dandiset
         </v-card-title>
         <v-divider class="my-3" />
         <v-card-text>
@@ -20,7 +20,7 @@
             <span class="font-weight-bold">
               permanent
             </span>
-            action and is not undoable. Once a dandiset has been released,
+            action and is not undoable. Once a dandiset has been unembargoed,
             it will be public forever.
             <br><br>
             Note: this may take a while if your dandiset is large.
@@ -34,7 +34,7 @@
           <v-btn
             color="error"
             depressed
-            @click="release()"
+            @click="unembargo()"
           >
             Yes
           </v-btn>
@@ -66,15 +66,15 @@
               color="info"
               depressed
               :disabled="unembargoing"
-              @click="release()"
+              @click="unembargo()"
             >
-              {{ unembargoing ? 'Releasing' : 'Release' }}
+              {{ unembargoing ? 'Unembargoing' : 'Unembargo' }}
               <v-spacer />
               <v-icon>mdi-lock-open</v-icon>
             </v-btn>
           </div>
         </template>
-        <span v-if="unembargoing">This dandiset is being released, please wait.</span>
+        <span v-if="unembargoing">This dandiset is being unembargoed, please wait.</span>
       </v-tooltip>
     </v-row>
     <v-row>
@@ -118,7 +118,7 @@ export default defineComponent({
     const unembargoing = computed(() => currentDandiset.value?.dandiset.embargo_status === 'UNEMBARGOING');
     const showWarningDialog = ref(false);
 
-    async function release() {
+    async function unembargo() {
       if (currentDandiset.value) {
         // Display the warning dialog before releasing
         if (!showWarningDialog.value) {
@@ -140,7 +140,7 @@ export default defineComponent({
       currentDandiset,
       showWarningDialog,
       unembargoing,
-      release,
+      unembargo,
       formatDate,
     };
   },
