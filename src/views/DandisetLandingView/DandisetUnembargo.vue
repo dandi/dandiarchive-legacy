@@ -21,7 +21,7 @@
               permanent
             </span>
             action and is not undoable. Once a dandiset has been unembargoed,
-            it will be public forever.
+            it cannot be re-embargoed.
             <br><br>
             Note: this may take a while if your dandiset is large.
           </span>
