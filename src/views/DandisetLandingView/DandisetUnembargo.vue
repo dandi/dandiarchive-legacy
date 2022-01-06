@@ -17,11 +17,9 @@
         <v-card-text>
           <span>
             This action will unembargo this dandiset. Note that this is a
-          </span>
-          <span class="font-weight-bold">
-            permanent
-          </span>
-          <span>
+            <span class="font-weight-bold">
+              permanent
+            </span>
             action and is not undoable. Once a dandiset has been released,
             it will be public forever.
             <br><br>
