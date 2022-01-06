@@ -126,7 +126,7 @@ export default defineComponent({
           return;
         }
 
-        await dandiRest.publish(currentDandiset.value.dandiset.identifier);
+        await dandiRest.unembargo(currentDandiset.value.dandiset.identifier);
 
         // re-fetch the dandiset to refresh the embargo_status
         store.dispatch.dandiset.fetchDandiset({

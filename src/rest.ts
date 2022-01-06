@@ -212,6 +212,10 @@ const dandiRest = new Vue({
       const { data } = await client.post(`dandisets/${identifier}/versions/draft/publish/`);
       return data;
     },
+    async unembargo(identifier: string) {
+      // TODO: implement this once the server endpoint is available
+      return identifier;
+    },
     async info(): Promise<Info> {
       const { data } = await client.get('info/');
       return data;
