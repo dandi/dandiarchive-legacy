@@ -27,13 +27,24 @@
           </span>
         </v-card-text>
         <v-card-text>
-          Would you like to proceed?
+          Please enter this dandiset's identifier (
+          <span class="font-weight-bold">
+            {{ currentDandiset.dandiset.identifier }}
+          </span>
+          ) to proceed:
+          <v-text-field
+            v-model="confirmationPhrase"
+            style="width: 30%;"
+            dense
+            outlined
+          />
         </v-card-text>
 
         <v-card-actions>
           <v-btn
             color="error"
             depressed
+            :disabled="confirmationPhrase !== currentDandiset.dandiset.identifier"
             @click="unembargo()"
           >
             Yes
@@ -117,6 +128,7 @@ export default defineComponent({
     const currentDandiset = computed(() => store.state.dandiset.dandiset);
     const unembargoing = computed(() => currentDandiset.value?.dandiset.embargo_status === 'UNEMBARGOING');
     const showWarningDialog = ref(false);
+    const confirmationPhrase = ref('');
 
     async function unembargo() {
       if (currentDandiset.value) {
@@ -140,6 +152,7 @@ export default defineComponent({
       currentDandiset,
       showWarningDialog,
       unembargoing,
+      confirmationPhrase,
       unembargo,
       formatDate,
     };
